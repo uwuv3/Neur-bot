@@ -12,7 +12,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (message, client, args) => {
-    let sil_args = args.slice(0);
+    let sil_args = args
     if (!sil_args)
       return message.reply({
         content: "Bir değer gir",
@@ -21,6 +21,11 @@ module.exports = {
     if (!isNaN(sil_args))
       return message.reply({
         content: "Girdiğin değer bir sayı olmalı!",
+        allowedMentions: { repiledUser: false },
+      });
+      if(sil_args > 100) 
+      return message.reply({
+        content: "Girdiğin değer 100 den fazla olmamalı!",
         allowedMentions: { repiledUser: false },
       });
     message.channel.bulkDelete(sil_args);

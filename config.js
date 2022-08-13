@@ -1,6 +1,7 @@
 const config = {
   intents: 131071, //https://ziad87.net/intents/
   prefix: "?",
+  admins: ["984439714851479593"],
   properties: {
     browser: "Discord Android", // default : discord.js
   },

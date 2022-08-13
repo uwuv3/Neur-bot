@@ -18,7 +18,7 @@ client.on("messageCreate", async (message) => {
   if (!message.member) client.users.cache.get(message.author.id);
   //Only
   if (command.adminOnly) {
-    if (!bot.admins.includes(message.author.id))
+    if (!config.admins.includes(message.author.id))
       return message.reply({
         content: "this command is only for bot admins",
         allowedMentions: { repliedUser: false },

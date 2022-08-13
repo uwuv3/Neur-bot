@@ -10,7 +10,7 @@ const config = {
     activities: [
       "Aktifim olm ne bakıyon",
       "Bir zamanlar discord...",
-      "v0.0.6.50_BETA",
+      "v0.0.6.72_BETA",
     ],
     type: "Competing", //Playing,Streaming,Listening,Watching,Custom,Competing
     changes: 10000,

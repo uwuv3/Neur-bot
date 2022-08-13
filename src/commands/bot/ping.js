@@ -1,5 +1,5 @@
 module.exports = {
-    name: "boost-log",
+    name: "ping",
     aliases: [""],
     permission: ["SEND_MESSAGES"],
     cooldown: 5000,

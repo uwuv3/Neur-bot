@@ -1,5 +1,3 @@
-Slash command builder type 
-
 1=Subcommand
 2=SubcommandGroup
 3=StringOption
@@ -11,4 +9,3 @@ Slash command builder type
 9=MentionableOption
 10=NumberOption
 11=AttachmentOption
-------------------

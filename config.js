@@ -6,7 +6,7 @@ const config = {
   },
   presence: {
     status: "dnd", //online,idle,dnd,offline
-    activites: [
+    activities: [
       "Aktifim olm ne bakıyon",
       "Bir zamanlar discord...",
       "v0.0.6.50_BETA",

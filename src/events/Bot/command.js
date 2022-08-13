@@ -15,6 +15,15 @@ client.on("messageCreate", async (message) => {
   if (cmd.length == 0) return;
   let command = global.commands.get(cmd);
   if (!command) command = global.commands.get(global.aliases.get(cmd));
+  if (!command)
+    return message.reply({
+      content: "Böyle bir komudum yok",
+      allowedMentions: { repliedUser: false },
+    }).then(x=>{
+      setTimeout(()=>{
+        x.delete()
+      },5000)
+    });
   if (!message.member) client.users.cache.get(message.author.id);
   //Only
   if (command.adminOnly === true) {

@@ -1,5 +1,5 @@
 const { MessageButton, MessageEmbed } = require("discord.js");
-exports = {
+module.exports = {
   name: "avatar",
   aliases: [""],
   permission: ["SEND_MESSAGES"],
@@ -15,7 +15,7 @@ exports = {
     let user = message.mentions.users.first();
     if (!user) user = message.author;
     const embed = new MessageEmbed()
-      .setTitle(`avatar of\`${user.tag}\``)
+      .setTitle(`\`${user.tag}\` adlı kişinin avatarı`)
       .addField(
         "PNG",
         `[**\`LINK\`**](${user.displayAvatarURL({ format: "png" })})`,

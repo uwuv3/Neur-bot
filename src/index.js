@@ -1,12 +1,14 @@
 const { config } = require("../config");
 const { Client, Collection } = require("discord.js");
 const { readdirSync } = require("fs");
+const logs = require('discord-logs');
 const modals = require("discord-modals");
 const client = new Client({
   intents: config.intents,
   ws: { properties: { $browser: config.properties.browser } },
 });
 modals(client);
+logs(client);
 module.exports = client;
 
 global.cmd_cooldown = new Map();

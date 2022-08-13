@@ -17,7 +17,7 @@ client.on("messageCreate", async (message) => {
   if (!command) command = global.commands.get(global.aliases.get(cmd));
   if (!message.member) client.users.cache.get(message.author.id);
   //Only
-  if (command.adminOnly) {
+  if (command.adminOnly === true) {
     if (!config.admins.includes(message.author.id))
       return message.reply({
         content: "this command is only for bot admins",

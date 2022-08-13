@@ -1,0 +1,35 @@
+const { MessageEmbed } = require("discord.js");
+module.exports = {
+  name: "sil",
+  aliases: [""],
+  permission: ["SEND_MESSAGES", "MANAGE_MESSAGES"],
+  cooldown: 10000,
+  adminOnly: false,
+  /**
+   *
+   * @param {Message} message
+   * @param {Client} client
+   * @param {String[]} args
+   */
+  run: async (message, client, args) => {
+    let sil_args = args.slice(0);
+    if (!sil_args)
+      return message.reply({
+        content: "Bir değer gir",
+        allowedMentions: { repiledUser: false },
+      });
+    if (!isNaN(sil_args))
+      return message.reply({
+        content: "Girdiğin değer bir sayı olmalı!",
+        allowedMentions: { repiledUser: false },
+      });
+    message.channel.bulkDelete(sil_args);
+    message.channel.send({
+      embeds: [
+        new MessageEmbed()
+          .setColor("GREEN")
+          .setDescription(`Chat ${message.author} tarafından silindi!`),
+      ],
+    });
+  },
+};

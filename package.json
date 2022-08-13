@@ -1,0 +1,27 @@
+{
+  "name": "bot-projesi",
+  "version": "0.0.6",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uwuv3/Neur-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uwuv3/Neur-bot/issues"
+  },
+  "homepage": "https://github.com/uwuv3/Neur-bot#readme",
+  "dependencies": {
+    "discord.js": "^13.10.2",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security"
+  }
+}

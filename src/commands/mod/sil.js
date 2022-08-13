@@ -28,14 +28,15 @@ module.exports = {
         content: "Girdiğin değer 100 den fazla olmamalı!",
         allowedMentions: { repiledUser: false },
       });
-    message.channel.bulkDelete(sil_args);
-    message.channel.send({
-      embeds: [
-        new MessageEmbed()
-          .setColor("GREEN")
-          .setDescription(`Chat ${message.author} tarafından silindi!`)
-          .setFooter({ text: `100 mesaj silme istendi.` }),
-      ],
+    message.channel.bulkDelete(sil_args).then((x) => {
+      message.channel.send({
+        embeds: [
+          new MessageEmbed()
+            .setColor("GREEN")
+            .setDescription(`Chat ${message.author} tarafından silindi!`)
+            .setFooter({ text: `100 mesaj silme istendi.` }),
+        ],
+      });
     });
   },
 };

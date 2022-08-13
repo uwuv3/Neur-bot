@@ -4,5 +4,15 @@ const config = {
   properties: {
     browser: "Discord Android", // default : discord.js
   },
+  presence: {
+    status: "dnd", //online,idle,dnd,offline
+    activites: [
+      "Aktifim olm ne bakıyon",
+      "Bir zamanlar discord...",
+      "v0.0.6.50_BETA",
+    ],
+    type: "Competing", //Playing,Streaming,Listening,Watching,Custom,Competing
+    changes: 10000,
+  },
 };
-export { config };
+module.exports = { config };

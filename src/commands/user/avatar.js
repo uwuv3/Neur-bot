@@ -1,4 +1,4 @@
-import { MessageButton, MessageEmbed } from "discord.js";
+const { MessageButton, MessageEmbed } = require("discord.js");
 exports = {
   name: "avatar",
   aliases: [""],

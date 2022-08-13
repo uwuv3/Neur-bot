@@ -1,5 +1,5 @@
-import { config } from "../../../config";
-import client from "../../index"
+const { config } = require("../../../config");
+const client = require("../../index");
 client.on("ready", async () => {
   client.user.setStatus(config.presence.status.toLowerCase());
   let i = 0;

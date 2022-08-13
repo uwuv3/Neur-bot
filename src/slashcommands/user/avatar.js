@@ -1,7 +1,7 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
-import { MessageEmbed } from "discord.js";
+const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed } = require("discord.js");
 
-exports = {
+module.exports = {
   data: new SlashCommandBuilder()
     .setName("avatar")
     .setDescription("Get user avatar")

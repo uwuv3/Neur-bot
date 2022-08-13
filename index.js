@@ -1,6 +1,6 @@
 console.clear();
-import { ShardingManager } from "discord.js";
-import { config } from "dotenv";
+const { ShardingManager } = require("discord.js");
+const { config } = require("dotenv");
 config();
 const manager = new ShardingManager("./src/index.js", {
   token: process.env.TOKEN,

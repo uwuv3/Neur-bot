@@ -1,7 +1,7 @@
-import { REST } from "@discordjs/rest";
-import { Routes } from "discord-api-types/v10";
-import { readdirSync } from "fs"
-exports = (client) => {
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v10");
+const { readdirSync } = require("fs");
+module.exports = (client) => {
   let token;
   token = process.env.token;
   const appId = process.env.appId;

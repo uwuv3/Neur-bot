@@ -1,7 +1,7 @@
-import express from "express";
+const express = require("express");
 const app = express();
 const PORT = process.env.PORT || "8080";
-exports = (client) => {
+module.exports = (client) => {
   client.on("ready", async () => {
     app.get("/", function (req, res) {
       res.render("./index.ejs", {

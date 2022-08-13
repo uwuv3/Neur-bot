@@ -1,4 +1,4 @@
-exports = [
+module.exports = [
   "CREATE_INSTANT_INVITE", // (create invitations to the guild)
   "KICK_MEMBERS",
   "BAN_MEMBERS",

@@ -1,7 +1,7 @@
-import { config } from "../../../config";
-import client from "../../index";
-import PermissionsFlags from "../../../perm_flags";
-import { MessageEmbed } from "discord.js";
+const { config } = require("../../../config");
+const client = require("../../index");
+const PermissionsFlags = require("../../../perm_flags");
+const { MessageEmbed } = require("discord.js");
 const prefix = config.prefix;
 const command_cooldowns = global.cmd_cooldown;
 client.on("messageCreate", async (message) => {

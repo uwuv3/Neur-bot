@@ -1,12 +1,12 @@
-import { config } from "../config";
-import { Client, Collection } from "discord.js";
-import { readdirSync } from "fs";
+const { config } = require("../config");
+const { Client, Collection } = require("discord.js");
+const { readdirSync } = require("fs");
 
-export const client = new Client({
+const client = new Client({
   intents: config.intents,
   ws: { properties: { $browser: config.properties.browser } },
 });
-
+module.exports = client
 client.login(process.env.TOKEN);
 
 const handler = readdirSync("./src/functions").filter((file) =>

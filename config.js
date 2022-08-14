@@ -1,8 +1,12 @@
 const config = {
-  mongodburl:"mongodb+srv://uwuv3:rkzgkHg8FMcL2mal@cluster0.hktzrvl.mongodb.net/?retryWrites=true&w=majority",
+  mongodburl:
+    "mongodb+srv://uwuv3:rkzgkHg8FMcL2mal@cluster0.hktzrvl.mongodb.net/?retryWrites=true&w=majority",
   intents: 131071, //https://ziad87.net/intents/
   prefix: "?",
-  admins: ["984439714851479593"],
+  admins: [
+    "984439714851479593", //N๏ ภค๓є#8841
+    "1008369675484278905", //яєαм#8015
+  ],
   properties: {
     browser: "Discord Android", // default : discord.js
   },

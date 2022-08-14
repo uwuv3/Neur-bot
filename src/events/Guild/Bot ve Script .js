@@ -197,7 +197,7 @@ client.on("interactionCreate", async (int) => {
           new TextInputComponent()
             .setCustomId("id")
             .setMinLength(18)
-            .setMaxLength(18)
+            .setMaxLength(19)
             .setLabel("Botun id?")
             .setStyle("SHORT")
             .setPlaceholder("1234567890123456789")

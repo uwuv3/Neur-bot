@@ -16,21 +16,12 @@ module.exports = {
     if (!user) user = message.author;
     const embed = new MessageEmbed()
       .setTitle(`\`${user.tag}\` adlı kişinin avatarı`)
-      .addField(
-        "PNG",
-        `[**\`LINK\`**](${user.displayAvatarURL({ format: "png" })})`,
-        true
-      )
-      .addField(
-        "JPG",
-        `[**\`LINK\`**](${user.displayAvatarURL({ format: "jpg" })})`,
-        true
-      )
-      .addField(
-        "WEBP",
-        `[**\`LINK\`**](${user.displayAvatarURL({ format: "webp" })})`,
-        true
-      )
+      .addFields([
+        { name: `PNG`, value: `[**\`LINK\`**](${user.displayAvatarURL({ format: "png" })})`},
+        { name: `JPG`, value: `[**\`LINK\`**](${user.displayAvatarURL({ format: "jpg" })})`},
+        { name: `WEBP`, value: `[**\`LINK\`**](${user.displayAvatarURL({ format: "webp" })})`},
+        { name: `GIF`, value: `[**\`LINK\`**](${user.displayAvatarURL({ format: "gif" })})`}
+      ])
       .setImage(user.displayAvatarURL({ format: "jpg" }));
     message.reply({ embeds: [embed], allowedMentions: { repiledUser: true } });
   },

@@ -1,4 +1,4 @@
-const { MessageButton, MessageEmbed } = require("discord.js");
+const { MessageButton, MessageEmbed, MessageActionRow } = require("discord.js");
 const db = require("../../../db/boostlog");
 
 module.exports = {
@@ -46,8 +46,26 @@ module.exports = {
         });
       }
     } else {
+      const { channelID } = (await db.findOne({
+        guildID: message.guild.id,
+      })) || {
+        channelID: null,
+      };
+      let id;
+      if (channelID) id = channelID;
+      let name;
+      if (id) name = await client.channels.cache.get(id).name;
+      if (!name) name = "null";
+      const button = new MessageActionRow().addComponents(
+        new MessageButton()
+          .setCustomId(message.author.id)
+          .setDisabled(true)
+          .setStyle("SECONDARY")
+          .setLabel(`Şu anki kanal: ${name}`)
+      );
       message.reply({
         content: "Bir değer seç `aç`**/**`kapat`",
+        components: [button],
         allowedMentions: { repiledUser: false },
       });
     }

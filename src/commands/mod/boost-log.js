@@ -1,6 +1,5 @@
 const { MessageButton, MessageEmbed } = require("discord.js");
-const { Database } = require("nukleon");
-const db = new Database("db/boostlog.json");
+const db = require("../../../db/boostlog");
 
 module.exports = {
   name: "boost-log",
@@ -16,23 +15,35 @@ module.exports = {
    */
   run: async (message, client, args) => {
     if (args == "aç") {
-      db.set(`${message.guild.id}`, `${message.channel.id}`);
+      new db({
+        guildID: message.guild.id,
+        channelID: message.channel.id,
+      }).save();
       message.reply({
         embeds: [
           new MessageEmbed()
             .setColor("GREEN")
-            .setDescription(`Boost log kanalı başarıyla ${message.channel} ayarlandı!`),
+            .setDescription(
+              `Boost log kanalı başarıyla ${message.channel} ayarlandı!`
+            ),
         ],
       });
     } else if (args == "kapat") {
-      db.remove(`${message.guild.id}`);
-      message.reply({
-        embeds: [
-          new MessageEmbed()
-            .setColor("GREEN")
-            .setDescription(`Boost log kanalı başarıyla null ayarlandı!`),
-        ],
-      });
+      let deneme = await db.findOne({ guildID: message.guild.id });
+      if (!deneme)
+        return message.reply({
+          content: "Databasede bu sunucuya ait bir link yok!",
+        });
+      else {
+        db.deleteOne({ guildID: message.guild.id });
+        message.reply({
+          embeds: [
+            new MessageEmbed()
+              .setColor("GREEN")
+              .setDescription(`Boost log kanalı başarıyla null ayarlandı!`),
+          ],
+        });
+      }
     } else {
       message.reply({
         content: "Bir değer seç `aç`**/**`kapat`",

@@ -1,63 +1,79 @@
 const client = require("../../");
-const { Database } = require("nukleon");
 const { MessageEmbed } = require("discord.js");
-const db = new Database("db/boostlog.json");
+const db = require("../../../db/boostlog");
 client.on("guildMemberBoost", async (member) => {
-  const x = await db.has(`${member.guild.id}`);
-  if (x) {
-    const boostchannel = await db.get(`${member.guild.id}`);
-    client.channels.cache.get(boostchannel).send({
-      embeds: [
-        new MessageEmbed()
-          .setColor("GREEN")
-          .setDescription(
-            "<a:boost:1008029593355161650> Birisi bu sunucuya boost attı"
-          )
-          .setFooter({ text: `\`${member.user.tag}\` attı` }),
-      ],
-    });
+  const { channelID } = (await db.findOne({ guildID: member.guild.id })) || {
+    channelID: null,
+  };
+  if (channelID) {
+    try {
+      client.channels.cache.get(channelID).send({
+        embeds: [
+          new MessageEmbed()
+            .setColor("GREEN")
+            .setDescription(
+              "<a:boost:1008029593355161650> Birisi bu sunucuya boost attı"
+            )
+            .setFooter({ text: `\`${member.user.tag}\` attı` }),
+        ],
+      });
+    } catch (error) {
+      db.deleteOne({ guildID: member.guild.id });
+    }
   } else {
   }
 });
 client.on("guildMemberUnboost", async (member) => {
-  const x = await db.has(`${member.guild.id}`);
-  if (x) {
-    const boostchannel = await db.get(`${member.guild.id}`);
-    client.channels.cache.get(boostchannel).send({
-      embeds: [
-        new MessageEmbed()
-          .setColor("RED")
-          .setDescription(
-            "<a:boost:1008029593355161650> Birisi bu sunucudan boostunu çekti"
-          )
-          .setFooter({ text: `\`${member.user.tag}\` çekti` }),
-      ],
-    });
+  const { channelID } = (await db.findOne({ guildID: member.guild.id })) || {
+    channelID: null,
+  };
+  if (channelID) {
+    try {
+      client.channels.cache.get(channelID).send({
+        embeds: [
+          new MessageEmbed()
+            .setColor("RED")
+            .setDescription(
+              "<a:boost:1008029593355161650> Birisi bu sunucudan boostunu çekti"
+            )
+            .setFooter({ text: `\`${member.user.tag}\` çekti` }),
+        ],
+      });
+    } catch (error) {
+      db.deleteOne({ guildID: member.guild.id });
+    }
   } else {
   }
 });
 client.on("guildBoostLevelUp", async (guild, oldLevel, newLevel) => {
-  const x = await db.has(`${guild.id}`);
-  if (x) {
-    const boostchannel = await db.get(`${guild.id}`);
-    client.channels.cache.get(boostchannel).send({
-      embeds: [
-        new MessageEmbed()
-          .setColor("GREEN")
-          .setDescription(
-            "<a:boost:1008029593355161650> Sunucunun leveli yükseldi"
-          )
-          .setFooter({ text: `${oldLevel}'den ${newLevel}'e yükseldi!` }),
-      ],
-    });
+  const { channelID } = (await db.findOne({ guildID: member.guild.id })) || {
+    channelID: null,
+  };
+  if (channelID) {
+    try {
+      client.channels.cache.get(channelID).send({
+        embeds: [
+          new MessageEmbed()
+            .setColor("GREEN")
+            .setDescription(
+              "<a:boost:1008029593355161650> Sunucunun leveli yükseldi"
+            )
+            .setFooter({ text: `${oldLevel}'den ${newLevel}'e yükseldi!` }),
+        ],
+      });
+    } catch (error) {
+      db.deleteOne({ guildID: guild.id });
+    }
   } else {
   }
 });
 client.on("guildBoostLevelDown", async (guild, oldLevel, newLevel) => {
-    const x = await db.has(`${guild.id}`);
-    if (x) {
-      const boostchannel = await db.get(`${guild.id}`);
-      client.channels.cache.get(boostchannel).send({
+  const { channelID } = (await db.findOne({ guildID: member.guild.id })) || {
+    channelID: null,
+  };
+  if (channelID) {
+    try {
+      client.channels.cache.get(channelID).send({
         embeds: [
           new MessageEmbed()
             .setColor("RED")
@@ -67,7 +83,9 @@ client.on("guildBoostLevelDown", async (guild, oldLevel, newLevel) => {
             .setFooter({ text: `${oldLevel}'den ${newLevel}'e düştü!` }),
         ],
       });
-    } else {
+    } catch (error) {
+      db.deleteOne({ guildID: guild.id });
     }
-  });
-  
+  } else {
+  }
+});

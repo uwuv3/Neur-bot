@@ -1,5 +1,5 @@
 const config = {
-  mongodburl:"mongodb+srv://UwU:E1acebrail@cluster0.f6csaga.mongodb.net/uwu",
+  mongodburl:"mongodb+srv://uwuv3:rkzgkHg8FMcL2mal@cluster0.hktzrvl.mongodb.net/?retryWrites=true&w=majority",
   intents: 131071, //https://ziad87.net/intents/
   prefix: "?",
   admins: ["984439714851479593"],

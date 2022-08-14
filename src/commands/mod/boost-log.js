@@ -32,16 +32,17 @@ module.exports = {
       let deneme = await db.findOne({ guildID: message.guild.id });
       if (!deneme)
         return message.reply({
-          content: "Databasede bu sunucuya ait bir link yok!",
+          content: "Databasede bu sunucuya ait bir boostlog yok!",
         });
       else {
-        db.deleteOne({ guildID: message.guild.id });
-        message.reply({
-          embeds: [
-            new MessageEmbed()
-              .setColor("GREEN")
-              .setDescription(`Boost log kanalı başarıyla null ayarlandı!`),
-          ],
+        await db.deleteOne({ guildID: message.guild.id }).then((x) => {
+          message.reply({
+            embeds: [
+              new MessageEmbed()
+                .setColor("GREEN")
+                .setDescription(`Boost log kanalı başarıyla null ayarlandı!`),
+            ],
+          });
         });
       }
     } else {

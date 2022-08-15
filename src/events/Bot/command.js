@@ -1,4 +1,4 @@
-const { config } = require("../../../config");
+const { config, emotes } = require("../../../config");
 const client = require("../../index");
 const PermissionsFlags = require("../../../perm_flags");
 const { MessageEmbed } = require("discord.js");
@@ -16,20 +16,22 @@ client.on("messageCreate", async (message) => {
   let command = global.commands.get(cmd);
   if (!command) command = global.commands.get(global.aliases.get(cmd));
   if (!command)
-    return message.reply({
-      content: "Böyle bir komudum yok",
-      allowedMentions: { repliedUser: false },
-    }).then(x=>{
-      setTimeout(()=>{
-        x.delete()
-      },5000)
-    });
+    return message
+      .reply({
+        content: emotes.carpi + "Böyle bir komudum yok",
+        allowedMentions: { repliedUser: false },
+      })
+      .then((x) => {
+        setTimeout(() => {
+          x.delete();
+        }, 5000);
+      });
   if (!message.member) client.users.cache.get(message.author.id);
   //Only
   if (command.adminOnly === true) {
     if (!config.admins.includes(message.author.id))
       return message.reply({
-        content: "this command is only for bot admins",
+        content: emotes.carpi + "Bu komut botun adminlerine özel",
         allowedMentions: { repliedUser: false },
       });
   }
@@ -52,9 +54,8 @@ client.on("messageCreate", async (message) => {
         const noPermissionEmbed = new MessageEmbed()
           .setColor("RED")
 
-          .setDescription(
-            `I need to have \`${bot}\` privileges to use this command.`
-          );
+          .setDescription(`Benim \`${bot}\` yetkisine ihtiyacım var`)
+          .setFooter({ text: emotes.carpi });
 
         return message.reply({
           embeds: [noPermissionEmbed],
@@ -66,8 +67,9 @@ client.on("messageCreate", async (message) => {
           .setColor("RED")
 
           .setDescription(
-            `To be able to use this command, it must have \`${invalidUser}\` privileges.`
-          );
+            `Bu komudu kullanabilmen için \`${invalidUser}\` izinlerine yetkin olmalı`
+          )
+          .setFooter({ text: emotes.carpi });
         return message.reply({
           embeds: [noPermissionEmbed],
           allowedMentions: { repliedUser: false },
@@ -79,13 +81,13 @@ client.on("messageCreate", async (message) => {
   if (command.cooldown) {
     if (command_cooldowns.get(`${message.author.id}:${command.name}`)) {
       const embed = new MessageEmbed()
-        .setTitle("Cooldown Alert")
+        .setTitle(emotes.carpi)
         .setDescription(
-          `The \`${command.name}\` command has a \`${
+          `\`${command.name}\` komudunda \`${
             command.cooldown / 1000
-          }s\` cooldown. You still have to wait \`${
+          }saniye\` cooldown var. Yeniden kullanabilmen için\`${
             command_cooldowns.get(`${message.author.id}:${command.name}`) / 1000
-          }s\` until you can run the command again.`
+          }saniye\` beklemelisin`
         )
         .setColor("0x2F3136");
 

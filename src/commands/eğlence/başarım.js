@@ -1,5 +1,6 @@
 const { MessageAttachment } = require("discord.js");
 const fetch = require("node-fetch");
+const { emotes } = require("../../../config");
 module.exports = {
   name: "başarım",
   aliases: ["basarim", "mc-başarım", "mc-basarım", "mc-başarım"],
@@ -26,6 +27,7 @@ module.exports = {
     if (title.length > 22 || contents.length > 22)
       return message.reply({
         content:
+          emotes.carpi +
           "En fazla 22 karakter kullanabilirsin\nAlt satıra geçmek için **|** kullanın",
       });
     const url = `https://www.minecraftskinstealer.com/achievement/a.php?i=${rnd}&h=${encodeURIComponent(

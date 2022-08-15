@@ -1,4 +1,5 @@
 const { MessageButton, MessageEmbed, MessageActionRow } = require("discord.js");
+const { emotes } = require("../../../config");
 const db = require("../../../db/boostlog");
 
 module.exports = {
@@ -24,7 +25,8 @@ module.exports = {
           new MessageEmbed()
             .setColor("GREEN")
             .setDescription(
-              `Boost log kanalı başarıyla ${message.channel} ayarlandı!`
+              emotes.tik +
+                `Boost log kanalı başarıyla ${message.channel} ayarlandı!`
             ),
         ],
       });
@@ -32,7 +34,8 @@ module.exports = {
       let deneme = await db.findOne({ guildID: message.guild.id });
       if (!deneme)
         return message.reply({
-          content: "Databasede bu sunucuya ait bir boostlog yok!",
+          content:
+            emotes.carpi + "Databasede bu sunucuya ait bir boostlog yok!",
         });
       else {
         await db.deleteOne({ guildID: message.guild.id }).then((x) => {
@@ -40,7 +43,9 @@ module.exports = {
             embeds: [
               new MessageEmbed()
                 .setColor("GREEN")
-                .setDescription(`Boost log kanalı başarıyla null ayarlandı!`),
+                .setDescription(
+                  emotes.tik + `Boost log kanalı başarıyla null ayarlandı!`
+                ),
             ],
           });
         });

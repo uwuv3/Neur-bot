@@ -5,7 +5,7 @@ const config = {
   prefix: "?",
   admins: [
     "984439714851479593", //N๏ ภค๓є#8841
-    "1008369675484278905", //яєαм#8015
+    "830008975335489567", //яєαм#8015
   ],
   properties: {
     browser: "Discord Android", // default : discord.js

@@ -11,12 +11,12 @@ const config = {
     browser: "Discord Android", // default : discord.js
   },
   presence: {
-    status: "dnd", //online,idle,dnd,offline
+    status: "online", //online,idle,dnd,offline
     activities: [
       `@NEUR - ?yardım`,
       "@NEUR - v0.0.6.87_BETA",
     ],
-    type: "Competing", //Playing,Streaming,Listening,Watching,Custom,Competing
+    type: "Playing", //,Streaming,Listening,Watching,Custom,Competing
     changes: 10000,
   },
 };

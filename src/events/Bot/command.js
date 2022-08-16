@@ -4,15 +4,18 @@ const PermissionsFlags = require("../../../perm_flags");
 const { MessageEmbed } = require("discord.js");
 const prefix = config.prefix;
 const command_cooldowns = global.cmd_cooldown;
-const etikets = [`<@${client.user.id}>`, `<@!${client.user.id}>`];
+
 client.on("messageCreate", async (message) => {
   //other
+  const etiketler = [`<@${client.user.id}>`, `<@!${client.user.id}>`];
   if (message.author.bot) return;
-  if (etikets.includes(message.content))
+  if (etiketler.includes(message.content))
     return message.reply({
-      embeds: new MessageEmbed()
-        .setColor("DARK_RED")
-        .setDescription("Prefixim :`" + prefix + "`"),
+      embeds: [
+        new MessageEmbed()
+          .setColor("DARK_RED")
+          .setDescription("Prefixim :`" + prefix + "`"),
+      ],
     });
   if (!message.content.startsWith(prefix)) return;
   const args = message.content.slice(prefix.length).split(/ +/);

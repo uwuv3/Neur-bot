@@ -4,10 +4,16 @@ const PermissionsFlags = require("../../../perm_flags");
 const { MessageEmbed } = require("discord.js");
 const prefix = config.prefix;
 const command_cooldowns = global.cmd_cooldown;
+const etikets = [`<@${client.user.id}>`, `<@!${client.user.id}>`];
 client.on("messageCreate", async (message) => {
   //other
   if (message.author.bot) return;
-
+  if (etikets.includes(message.content))
+    return message.reply({
+      embeds: new MessageEmbed()
+        .setColor("DARK_RED")
+        .setDescription("Prefixim :`" + prefix + "`"),
+    });
   if (!message.content.startsWith(prefix)) return;
   const args = message.content.slice(prefix.length).split(/ +/);
 
@@ -18,7 +24,11 @@ client.on("messageCreate", async (message) => {
   if (!command)
     return message
       .reply({
-        content: emotes.carpi + "Böyle bir komudum yok",
+        embeds: [
+          new MessageEmbed()
+            .setColor("RED")
+            .setDescription(emotes.carpi + "Böyle bir komudum yok"),
+        ],
         allowedMentions: { repliedUser: false },
       })
       .then((x) => {
@@ -31,7 +41,11 @@ client.on("messageCreate", async (message) => {
   if (command.adminOnly === true) {
     if (!config.admins.includes(message.author.id))
       return message.reply({
-        content: emotes.carpi + "Bu komut botun adminlerine özel",
+        embeds: [
+          new MessageEmbed()
+            .setColor("RED")
+            .setDescription(emotes.carpi + "Bu komut botun adminlerine özel"),
+        ],
         allowedMentions: { repliedUser: false },
       });
   }
@@ -89,7 +103,7 @@ client.on("messageCreate", async (message) => {
             command_cooldowns.get(`${message.author.id}:${command.name}`) / 1000
           }saniye\` beklemelisin`
         )
-        .setColor("0x2F3136");
+        .setColor("RED");
 
       return message.reply({
         embeds: [embed],

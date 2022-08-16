@@ -35,9 +35,14 @@ module.exports = {
       );
       if (channelID) {
         message.reply({
-          content:
-            emotes.carpi +
-            "Databaseye göre bu sunucya ait bir boostlog kanalı var",
+          embeds: [
+            new MessageEmbed()
+              .setColor("RED")
+              .setDescription(
+                emotes.carpi +
+                  "Databaseye göre bu sunucya ait bir boostlog kanalı var"
+              ),
+          ],
           components: [button],
           allowedMentions: { repiledUser: false },
         });
@@ -45,12 +50,22 @@ module.exports = {
         let kanal = message.mentions.channels.first();
         if (!kanal)
           return message.reply({
-            content: emotes.carpi + "Bir kanal seç!",
+            embeds: [
+              new MessageEmbed()
+                .setColor("RED")
+                .setDescription(emotes.carpi + "Bir kanal seç"),
+            ],
             allowedMentions: { repiledUser: false },
           });
         if (!kanal.type === "GUILD_TEXT")
           return message.reply({
-            content: emotes.carpi + "Seçtiğin kanal bir yazı kanalı olmalı",
+            embeds: [
+              new MessageEmbed()
+                .setColor("RED")
+                .setDescription(
+                  emotes.carpi + "Seçtiğin kanal bir yazı kanalı olmalı"
+                ),
+            ],
             allowedMentions: { repiledUser: false },
           });
 
@@ -72,8 +87,13 @@ module.exports = {
       let deneme = await db.findOne({ guildID: message.guild.id });
       if (!deneme)
         return message.reply({
-          content:
-            emotes.carpi + "Databasede bu sunucuya ait bir boostlog yok!",
+          embeds: [
+            new MessageEmbed()
+              .setColor("RED")
+              .setDescription(
+                emotes.carpi + "Databasede bu sunucuya ait bir boostlog yok!"
+              ),
+          ],
         });
       else {
         await db.deleteOne({ guildID: message.guild.id }).then((x) => {
@@ -107,7 +127,11 @@ module.exports = {
           .setLabel(`Şu anki kanal: ${name}`)
       );
       message.reply({
-        content: emotes.carpi + "Bir değer seç `aç`**/**`kapat`",
+        embeds: [
+          new MessageEmbed()
+            .setColor("RED")
+            .setDescription(emotes.carpi + "Bir değer seç `aç`**/**`kapat`"),
+        ],
         components: [button],
         allowedMentions: { repiledUser: false },
       });

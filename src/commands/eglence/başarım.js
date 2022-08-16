@@ -1,4 +1,4 @@
-const { MessageAttachment } = require("discord.js");
+const { MessageAttachment, MessageEmbed } = require("discord.js");
 const fetch = require("node-fetch");
 const { emotes } = require("../../../config");
 module.exports = {
@@ -26,9 +26,14 @@ module.exports = {
 
     if (title.length > 22 || contents.length > 22)
       return message.reply({
-        content:
-          emotes.carpi +
-          "En fazla 22 karakter kullanabilirsin\nAlt satıra geçmek için **|** kullanın",
+        embeds: [
+          new MessageEmbed()
+            .setColor("RED")
+            .setDescription(
+              emotes.carpi +
+                "En fazla 22 karakter kullanabilirsin\nAlt satıra geçmek için **|** kullanın"
+            ),
+        ],
       });
     const url = `https://www.minecraftskinstealer.com/achievement/a.php?i=${rnd}&h=${encodeURIComponent(
       title
@@ -36,7 +41,7 @@ module.exports = {
     const img = await fetch(url).then((img) => {
       return img.body;
     });
-    const image = new MessageAttachment(img, "atc.png");
+    const image = new MessageAttachment(img, "neur.png");
     message.reply({ files: [image] });
   },
 };

@@ -20,9 +20,9 @@ module.exports = {
         { name: `PNG`, value: `[**\`LINK\`**](${user.displayAvatarURL({ format: "png" })})`},
         { name: `JPG`, value: `[**\`LINK\`**](${user.displayAvatarURL({ format: "jpg" })})`},
         { name: `WEBP`, value: `[**\`LINK\`**](${user.displayAvatarURL({ format: "webp" })})`},
-        { name: `GIF`, value: `[**\`LINK\`**](${user.displayAvatarURL({ format: "gif" })})`}
+        { name: `NORMAL`, value: `[**\`LINK\`**](${user.displayAvatarURL()})`}
       ])
-      .setImage(user.displayAvatarURL({ format: "jpg" }));
+      .setImage(user.displayAvatarURL());
     message.reply({ embeds: [embed], allowedMentions: { repiledUser: true } });
   },
 };

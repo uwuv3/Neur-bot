@@ -4,8 +4,8 @@ const PermissionsFlags = require("../../../perm_flags");
 const { MessageEmbed } = require("discord.js");
 const prefix = config.prefix;
 const command_cooldowns = global.cmd_cooldown;
-const etikets = [`<@${client.user.id}>`, `<@!${client.user.id}>`];
 client.on("messageCreate", async (message) => {
+const etikets = [`<@${client.user.id}>`, `<@!${client.user.id}>`];
   //other
   if (message.author.bot) return;
   if (etikets.includes(message.content))

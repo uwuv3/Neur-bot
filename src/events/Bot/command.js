@@ -10,9 +10,9 @@ const etikets = [`<@${client.user.id}>`, `<@!${client.user.id}>`];
   if (message.author.bot) return;
   if (etikets.includes(message.content))
     return message.reply({
-      embeds: new MessageEmbed()
+      embeds: [ new MessageEmbed()
         .setColor("DARK_RED")
-        .setDescription("Prefixim :`" + prefix + "`"),
+        .setDescription("Prefixim :`" + prefix + "`"),]
     });
   if (!message.content.startsWith(prefix)) return;
   const args = message.content.slice(prefix.length).split(/ +/);

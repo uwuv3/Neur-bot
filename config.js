@@ -14,7 +14,7 @@ const config = {
     status: "dnd", //online,idle,dnd,offline
     activities: [
       `@NEUR - ?yardım`,
-      "@NEUR - v0.0.6.85_BETA",
+      "@NEUR - v0.0.6.87_BETA",
     ],
     type: "Competing", //Playing,Streaming,Listening,Watching,Custom,Competing
     changes: 10000,

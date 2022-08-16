@@ -6,6 +6,7 @@ const prefix = config.prefix;
 const command_cooldowns = global.cmd_cooldown;
 
 client.on("messageCreate", async (message) => {
+ 
   //other
   const etiketler = [`<@${client.user.id}>`, `<@!${client.user.id}>`];
   if (message.author.bot) return;

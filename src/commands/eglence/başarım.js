@@ -14,19 +14,25 @@ module.exports = {
    */
   run: async (message, client, args) => {
     let [title, contents] = args.join(" ").split("|");
+    if (!title && !contents)
+      return message.reply({
+        embeds: [
+          new MessageEmbed()
+            .setColor("RED")
+            .setDescription(emotes.carpi + "Bir şey yaz"),
+        ],
+      });
     if (!contents) {
       [title, contents] = ["Yeni basarim kazanildi", title];
     }
-    if(!title)  return message.reply({
-      embeds: [
-        new MessageEmbed()
-          .setColor("RED")
-          .setDescription(
-            emotes.carpi +
-              "Bir şey yaz"
-          ),
-      ],
-    });
+    if (!title)
+      return message.reply({
+        embeds: [
+          new MessageEmbed()
+            .setColor("RED")
+            .setDescription(emotes.carpi + "Bir şey yaz"),
+        ],
+      });
     let rnd = Math.floor(Math.random() * 39 + 1);
     if (args.join(" ").toLowerCase().includes("grass")) rnd = 1;
     if (args.join(" ").toLowerCase().includes("diamond")) rnd = 2;

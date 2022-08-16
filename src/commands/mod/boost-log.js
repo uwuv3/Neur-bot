@@ -5,7 +5,7 @@ const db = require("../../../db/boostlog");
 module.exports = {
   name: "boost-log",
   aliases: [""],
-  permission: ["SEND_MESSAGES"],
+  permission: ["ADMINISTRATOR"],
   cooldown: 5000,
   adminOnly: false,
   /**

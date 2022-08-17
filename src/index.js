@@ -14,7 +14,6 @@ module.exports = client;
 global.cmd_cooldown = new Map();
 global.commands = new Collection();
 global.aliases = new Collection();
-global.scommands = new Collection();
 global.events = new Collection();
 
 client.login(process.env.TOKEN);

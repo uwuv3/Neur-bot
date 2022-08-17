@@ -1,7 +1,11 @@
 const botversion = require("../../../package.json").version;
-const { version: discordjsVersion, MessageEmbed } = require("discord.js");
+const {
+  version: discordjsVersion,
+  MessageEmbed,
+  Message,
+  Client,
+} = require("discord.js");
 const os = require("os");
-
 module.exports = {
   name: "istatistik",
   aliases: [""],

@@ -1,4 +1,9 @@
-const { MessageAttachment, MessageEmbed } = require("discord.js");
+const {
+  MessageAttachment,
+  MessageEmbed,
+  Message,
+  Client,
+} = require("discord.js");
 const fetch = require("node-fetch");
 const { emotes } = require("../../../config");
 module.exports = {

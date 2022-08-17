@@ -1,4 +1,4 @@
-const { Permissions, MessageEmbed, Message, Client } = require("discord.js");
+const { MessageEmbed, Message, Client } = require("discord.js");
 const { readdirSync } = require("fs");
 const { config } = require("../../../config");
 const prefix = config.prefix;
@@ -56,7 +56,8 @@ module.exports = {
           client.user.displayAvatarURL({
             dynamic: true,
           })
-        );
+        )
+        .setColor(config.color)
       message.reply({ embeds: [embed] });
     }
   },

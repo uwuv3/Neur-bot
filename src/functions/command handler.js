@@ -1,6 +1,7 @@
 const { readdirSync } = require("fs");
 module.exports = (client) => {
   readdirSync("./src/commands/").forEach((dir) => {
+    if (dir.endsWith(".js")) return;
     const commands = readdirSync(`./src/commands/${dir}/`).filter((file) =>
       file.endsWith(".js")
     );

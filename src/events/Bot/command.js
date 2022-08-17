@@ -6,7 +6,6 @@ const prefix = config.prefix;
 const command_cooldowns = global.cmd_cooldown;
 
 client.on("messageCreate", async (message) => {
- 
   //other
   const etiketler = [`<@${client.user.id}>`, `<@!${client.user.id}>`];
   if (message.author.bot) return;
@@ -14,7 +13,7 @@ client.on("messageCreate", async (message) => {
     return message.reply({
       embeds: [
         new MessageEmbed()
-          .setColor("DARK_RED")
+          .setColor(config.color)
           .setDescription("Prefixim :`" + prefix + "`"),
       ],
     });
@@ -131,8 +130,8 @@ client.on("messageCreate", async (message) => {
   if (command) {
     /**
      *
-     * @param {Message} message
-     * @param {Client} client
+     * @param {message} message
+     * @param {client} client
      * @param {String[]} args
      */
     await command.run(message, client, args);

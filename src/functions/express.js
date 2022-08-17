@@ -14,6 +14,7 @@ module.exports = (client) => {
     appCreate();
   });
   function appCreate() {
+    app.set("view engine", "ejs");
     app.listen(PORT, function (err) {
       if (err) {
         console.log(

@@ -23,4 +23,4 @@ const emotes = {
   tik: "<:yes:1007310699904643163>",
   boost: "<a:boost:1008029593355161650>",
 };
-export default { config, emotes };
+module.exports = { config, emotes };

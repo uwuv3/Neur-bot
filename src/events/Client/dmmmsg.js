@@ -3,7 +3,8 @@ const { MessageEmbed } = require("discord.js");
 const { config } = require("../../../config");
 client.on("messageCreate", async (message) => {
   if (message.channel.type === "DM") {
-    if(message.author.bot) return
+    if (message.author.bot) return;
+    message.reply("Mesajınızı ilettik ...");
     const dmsg = new MessageEmbed()
       .setTitle(`${client.user.username} - DM mesaj`)
       .setColor(config.color)

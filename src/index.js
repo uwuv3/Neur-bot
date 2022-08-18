@@ -1,10 +1,18 @@
 const { config } = require("../config");
 const { Client, Collection } = require("discord.js");
 const { readdirSync } = require("fs");
-const logs = require('discord-logs');
+const logs = require("discord-logs");
 const modals = require("discord-modals");
 const client = new Client({
   intents: config.intents,
+  partials: [
+    "CHANNEL",
+    "MESSAGE",
+    "GUILD_MEMBER",
+    "GUILD_SCHEDULED_EVENT",
+    "REACTION",
+    "USER",
+  ],
   ws: { properties: { $browser: config.properties.browser } },
 });
 modals(client);

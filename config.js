@@ -13,7 +13,7 @@ const config = {
     browser: "Discord Android", // default : discord.js
   },
   presence: {
-    status: "online", //online,idle,dnd,offline
+    status: "", //online,idle,dnd,offline
     activities: [`@NEUR - ?yardım`, "@NEUR - v0.0.7_BETA"],
     type: "Playing", //,Streaming,Listening,Watching,Custom,Competing
     changes: 10000,

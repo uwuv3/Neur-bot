@@ -1,8 +1,9 @@
 const config = {
   mongodburl:
     "mongodb+srv://uwuv3:rkzgkHg8FMcL2mal@cluster0.hktzrvl.mongodb.net/?retryWrites=true&w=majority",
-  intents: 131071, //https://ziad87.net/intents/
+  intents:  131071, //https://ziad87.net/intents/
   prefix: "?",
+  dmmsgchnl: "977846930975633438",
   color: "DARK_RED",
   admins: [
     "984439714851479593", //N๏ ภค๓є#8841

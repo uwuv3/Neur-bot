@@ -18,26 +18,29 @@ client.on("modalSubmit", async (modal) => {
   if (modal.customId === "bot-modal") {
     const name = modal.getTextInputValue("id");
     const code = modal.getTextInputValue("prefix");
-    const version = modal.getSelectMenuValues("onay");
     const page = await client.channels.cache.get("1005176913268068453").send({
       embeds: [
         new MessageEmbed()
-          .setTitle("Yeni...")
+          .setTitle("Yeni bot")
           .setDescription(
             `Yapımcı : ${modal.user}\`(${modal.user.id})\`
 Bot id : ${name}
 Prefix : ${code}
-Bot onaylı mı? : ${version}
 `
           )
-          .addField(
-            `0 perm davet linki`,
-            `[TIKLA](https://discord.com/api/oauth2/authorize?client_id=${name}&permissions=0&scope=bot)`
+          .addFields(
+            {
+              name: `0 perm davet linki`,
+              value: `[TIKLA](https://discord.com/api/oauth2/authorize?client_id=${name}&permissions=0&scope=bot)`,
+            },
+            {
+              name: `8 perm davet linki`,
+              value: `[TIKLA](https://discord.com/api/oauth2/authorize?client_id=${name}&permissions=8&scope=bot)`,
+            }
           )
-          .addField(
-            `8 perm davet linki`,
-            `[TIKLA](https://discord.com/api/oauth2/authorize?client_id=${name}&permissions=8&scope=bot)`
-          ),
+          .setFooter({
+            text: "Lütfen botu eklerken 0 perm davet linki kullanın",
+          }),
       ],
       components: [
         new MessageActionRow().setComponents(
@@ -209,23 +212,7 @@ client.on("interactionCreate", async (int) => {
             .setLabel("Botun prefixi")
             .setStyle("SHORT")
             .setPlaceholder("!,/,?")
-            .setRequired(true),
-          new SelectMenuComponent()
-            .setCustomId("onay")
-            .setPlaceholder("Bot onaylı mı?")
-            .setMaxValues(1)
-            .addOptions(
-              {
-                label: "hayır",
-                description: "Discord tarafondan onaysız",
-                value: "hayir",
-              },
-              {
-                label: "evet",
-                description: "Discord tarafondan onaylı",
-                value: "evet",
-              }
-            )
+            .setRequired(true)
         );
       showModal(modal, {
         client: client,

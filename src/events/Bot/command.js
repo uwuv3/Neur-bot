@@ -135,6 +135,19 @@ client.on("messageCreate", async (message) => {
      * @param {client} client
      * @param {String[]} args
      */
+    /* const fetch = require("node-fetch");
+    await fetch(
+      `https://top.gg/api/bots/${client.user.id}/check?userId=${message.author.id}`,
+      {
+        Headers: {
+          Authorization: config.topggtoken,
+        },
+      }
+    ).then(async (response) => {
+      var check = response.body.voted;
+      if (check === 1) {*/
     await command.run(message, client, args);
+    // }
+    // });
   }
 });

@@ -5,7 +5,7 @@ const {
   Client,
 } = require("discord.js");
 const fetch = require("node-fetch");
-const { emotes } = require("../../../config");
+const { emotes, config } = require("../../../config");
 module.exports = {
   name: "başarım",
   aliases: ["basarim", "mc-başarım", "mc-basarım", "mc-başarım"],
@@ -20,11 +20,14 @@ module.exports = {
   run: async (message, client, args) => {
     let [title, contents] = args.join(" ").split("|");
     if (!title && !contents)
-      return message.reply({
+      message.reply({
         embeds: [
           new MessageEmbed()
-            .setColor("RED")
-            .setDescription(emotes.carpi + "Bir şey yaz"),
+            .setColor(config.color)
+            .setDescription(
+              emotes.carpi +
+                `Yanlış kullanım\nDoğru kullanım: **${config.prefix}başarım <args>|<args>**`
+            ),
         ],
       });
     if (!contents) {
@@ -34,7 +37,7 @@ module.exports = {
       return message.reply({
         embeds: [
           new MessageEmbed()
-            .setColor("RED")
+            .setColor(config.color)
             .setDescription(emotes.carpi + "Bir şey yaz"),
         ],
       });
@@ -49,7 +52,7 @@ module.exports = {
       return message.reply({
         embeds: [
           new MessageEmbed()
-            .setColor("RED")
+            .setColor(config.color)
             .setDescription(
               emotes.carpi +
                 "En fazla 22 karakter kullanabilirsin\nAlt satıra geçmek için **|** kullanın"

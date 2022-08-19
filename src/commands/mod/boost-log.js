@@ -5,7 +5,7 @@ const {
   Message,
   Client,
 } = require("discord.js");
-const { emotes } = require("../../../config");
+const { emotes, config } = require("../../../config");
 const db = require("../../../db/boostlog");
 
 module.exports = {
@@ -82,7 +82,7 @@ module.exports = {
         message.reply({
           embeds: [
             new MessageEmbed()
-              .setColor("GREEN")
+              .setColor(config.color)
               .setDescription(
                 emotes.tik + `Boost log kanalı başarıyla ${kanal} ayarlandı!`
               ),
@@ -95,7 +95,7 @@ module.exports = {
         return message.reply({
           embeds: [
             new MessageEmbed()
-              .setColor("RED")
+              .setColor(config.color)
               .setDescription(
                 emotes.carpi + "Databasede bu sunucuya ait bir boostlog yok!"
               ),
@@ -106,7 +106,7 @@ module.exports = {
           message.reply({
             embeds: [
               new MessageEmbed()
-                .setColor("GREEN")
+                .setColor(config.color)
                 .setDescription(
                   emotes.tik + `Boost log kanalı başarıyla null ayarlandı!`
                 ),
@@ -135,8 +135,11 @@ module.exports = {
       message.reply({
         embeds: [
           new MessageEmbed()
-            .setColor("RED")
-            .setDescription(emotes.carpi + "Bir değer seç `aç`**/**`kapat`"),
+            .setColor(config.color)
+            .setDescription(
+              emotes.carpi +
+                `Yanlış kullanım\nDoğru kullanım: **${config.prefix}boost-log <aç/kapat>**`
+            ),
         ],
         components: [button],
         allowedMentions: { repiledUser: false },

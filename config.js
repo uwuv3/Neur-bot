@@ -1,4 +1,5 @@
 const config = {
+  topggtoken: "",
   mongodburl:
     "mongodb+srv://uwuv3:rkzgkHg8FMcL2mal@cluster0.hktzrvl.mongodb.net/?retryWrites=true&w=majority", //! MOngodb bağlanması için URL
   //TODO: Boş bırakma bot çalışmaz
@@ -32,7 +33,7 @@ const config = {
   presence: {
     status: "", //!Kullanıcı durumu
     //TODO: online,idle,dnd,offline
-    activities: [`@NEUR - ?yardım`, "@NEUR - v0.0.7_BETA"], //! Botun oynuyor kısmı
+    activities: [`@NEUR - ?yardım`, "@NEUR - v0.0.7.23_BETA"], //! Botun oynuyor kısmı
     //TODO: Boş bırakma hata verir
     type: "Playing", //! Oynuyor kısmının type'ı
     //TODO: Playing,Streaming,Listening,Watching,Custom,Competing

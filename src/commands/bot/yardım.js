@@ -24,7 +24,7 @@ module.exports = {
           file.endsWith(".js")
         );
 
-        const name = `•${dir.toUpperCase()}`;
+        const name = `${dir.toUpperCase()}`;
         let cats = new Object();
         let cmds = [];
         for (let file of command) {
@@ -37,7 +37,7 @@ module.exports = {
         }
         cats = {
           name: name,
-          value: `\`${cmds}\``,
+          value: `\`${cmds.join("\n")}\``,
           inline: true,
         };
 

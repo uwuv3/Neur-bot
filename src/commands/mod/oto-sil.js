@@ -2,7 +2,7 @@ const { MessageEmbed, Message, Client } = require("discord.js");
 module.exports = {
   name: "oto-sil",
   aliases: [],
-  permission: ["SEND_MESSAGES"],
+  permission: ["MANAGE_MESSAGES"],
   cooldown: 1000,
   adminOnly: false,
   /**

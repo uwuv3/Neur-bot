@@ -1,10 +1,11 @@
 const client = require("../../index");
 client.msgsil = new Set();
-
-client.on("messageCreate", async (message) => {
-  if (client.msgsil.has(`${message.channelId}`)) {
-    setTimeout(() => {
-      message.delete().catch(() => {});
-    }, 10000);
-  }
+client.on("ready", async () => {
+  setInterval(() => {
+    client.channels.cache.each((Kanal) => {
+      if (client.msgsil.has(`${Kanal.id}`)) {
+        Kanal.bulkDelete(1);
+      }
+    });
+  }, 10000);
 });

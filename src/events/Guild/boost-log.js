@@ -17,7 +17,7 @@ client.on("guildMemberBoost", async (member) => {
         ],
       });
     } catch (error) {
-      await db.deleteOne({ guildID: member.guild.id });
+      await db.deleteOne({ guildID: member.guild.id }); // ! Hata alırsa dbden silmesi
     }
   } else {
   }
@@ -37,7 +37,7 @@ client.on("guildMemberUnboost", async (member) => {
         ],
       });
     } catch (error) {
-      await db.deleteOne({ guildID: member.guild.id });
+      await db.deleteOne({ guildID: member.guild.id }); // ! Hata alırsa dbden silmesi
     }
   } else {
   }
@@ -57,7 +57,7 @@ client.on("guildBoostLevelUp", async (guild, oldLevel, newLevel) => {
         ],
       });
     } catch (error) {
-      await db.deleteOne({ guildID: guild.id });
+      await db.deleteOne({ guildID: guild.id }); // ! Hata alırsa dbden silmesi
     }
   } else {
   }
@@ -77,7 +77,7 @@ client.on("guildBoostLevelDown", async (guild, oldLevel, newLevel) => {
         ],
       });
     } catch (error) {
-      await db.deleteOne({ guildID: guild.id });
+      await db.deleteOne({ guildID: guild.id }); // ! Hata alırsa dbden silmesi
     }
   } else {
   }

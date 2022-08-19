@@ -37,5 +37,5 @@ module.exports = (client) => {
       `├────────────┬─•\n│ ANTI CRASH │ -> Shard\n├────────────•` + error
     );
   });
-  //deprecated :https://nodejs.org/api/process.html#event-multipleresolves
+  // ! deprecated : https://nodejs.org/api/process.html#event-multipleresolves
 };

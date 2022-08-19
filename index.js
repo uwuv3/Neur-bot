@@ -1,4 +1,4 @@
-console.clear();
+console.clear(); // * konsol temizlenmesi
 const { ShardingManager } = require("discord.js");
 const { config } = require("dotenv");
 config();
@@ -10,7 +10,7 @@ setInterval(() => {
   console.log(
     `├──────────┬\n│ SHARDING │ -> All shards rebooted\n├──────────•`
   );
-}, 86400000); //1 day
+}, 86400000); // * Günlük shard yenilnmesi
 
 manager.on("shardCreate", (shard) =>
   console.log(

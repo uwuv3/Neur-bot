@@ -4,16 +4,9 @@ const { readdirSync } = require("fs");
 const logs = require("discord-logs");
 const modals = require("discord-modals");
 const client = new Client({
-  intents: config.intents,
-  partials: [
-    "CHANNEL",
-    "MESSAGE",
-    "GUILD_MEMBER",
-    "GUILD_SCHEDULED_EVENT",
-    "REACTION",
-    "USER",
-  ],
-  ws: { properties: { $browser: config.properties.browser } },
+  intents: config.client.intents,
+  partials: config.client.partials,
+  ws: { properties: { $browser: config.client.properties.browser } },
 });
 modals(client);
 logs(client);

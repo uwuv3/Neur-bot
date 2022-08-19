@@ -1,5 +1,5 @@
 const client = require("../../index");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, MessageAttachment } = require("discord.js");
 const { config } = require("../../../config");
 client.on("messageCreate", async (message) => {
   if (message.channel.type === "DM") {
@@ -10,10 +10,20 @@ client.on("messageCreate", async (message) => {
       .setColor(config.color)
       .addFields([
         { name: "Mesajı gönderen :", value: message.author.tag },
-        { name: "Gönderilen mesaj:", value: message.content },
+        {
+          name: "Gönderilen mesaj:",
+          value: message.content ? message.content : "Bir mesaj yok",
+        },
       ])
       .setThumbnail(message.author.avatarURL());
-
-    client.channels.cache.get(config.dmmsgchnl).send({ embeds: [dmsg] });
+    let files = [];
+    if (message.attachments > 0) message.attachments;
+    message.attachments.map((x) => files.push(x.url));
+    client.channels.cache
+      .get(config.dmmsgchnl)
+      .send({
+        embeds: [dmsg],
+        content: `Gönderdiği dosyalar :\n${files.join("\n")}`,
+      });
   }
 });

@@ -1,12 +1,12 @@
-const { config, emotes } = require("../../../config");
-const client = require("../../index");
-const PermissionsFlags = require("../../../perm_flags");
-const { MessageEmbed } = require("discord.js");
+const { config, emotes } = require("../../../config"); //! config.js de olan ayarlar ve emojiler
+const client = require("../../index"); //! client(bot) gösterme
+const PermissionsFlags = require("../../../perm_flags"); //! Bot yetki listesi
+const { MessageEmbed } = require("discord.js"); //! Mesaj embed modülü
 const prefix = config.prefix;
 const command_cooldowns = global.cmd_cooldown;
 
 client.on("messageCreate", async (message) => {
-  if(!message.inGuild()) return
+  if (!message.inGuild()) return;
   //other
   const etiketler = [`<@${client.user.id}>`, `<@!${client.user.id}>`];
   if (message.author.bot) return;

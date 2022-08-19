@@ -16,13 +16,14 @@ module.exports = {
    */
   run: async (message, client, args) => {
     if (!args[0]) {
-      const ignored = ["bot"];
+      const ignored = ["bot", "template.js"];
       let categories = [];
       readdirSync("./src/commands/").forEach((dir) => {
+        if (ignored.includes(dir.toLowerCase())) return;
         const command = readdirSync(`./src/commands/${dir}/`).filter((file) =>
           file.endsWith(".js")
         );
-        if (ignored.includes(dir.toLowerCase())) return;
+
         const name = `•${dir.toUpperCase()}`;
         let cats = new Object();
         let cmds = [];
@@ -57,7 +58,7 @@ module.exports = {
             dynamic: true,
           })
         )
-        .setColor(config.color)
+        .setColor(config.color);
       message.reply({ embeds: [embed] });
     }
   },

@@ -1,4 +1,4 @@
-const { readdirSync } = require("fs");
+const { readdirSync } = require("fs"); //! Komut görme modülü
 module.exports = (client) => {
   readdirSync("./src/commands/").forEach((dir) => {
     if (dir.endsWith(".js")) return;

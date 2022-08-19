@@ -1,4 +1,4 @@
-const { readdirSync } = require("fs");
+const { readdirSync } = require("fs"); //! Event görme modülü
 module.exports = (client) => {
   readdirSync("./src/events/").forEach((dir) => {
     const events = readdirSync(`./src/events/${dir}`).filter((file) =>

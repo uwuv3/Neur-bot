@@ -1,21 +1,21 @@
 console.clear(); //TODO:Konsolun temizlenmesini istemiyorsan kapat
-const { ShardingManager } = require("discord.js");
+const { ShardingManager } = require("discord.js"); //! Shard için gerekli modül
 const { config } = require("dotenv");
-config();
+config(); //! .env modülü
 const manager = new ShardingManager("./src/index.js", {
   token: process.env.TOKEN,
-});
+}); //! Shard kurulumu
 setInterval(() => {
   manager.respawnAll();
   console.log(
-    `├──────────┬\n│ SHARDING │ -> All shards rebooted\n├──────────•`
+    `├──────────┬\n│ SHARDING │ -> Tüm shardlar yenilendi\n├──────────•`
   );
-}, 86400000); //! Günlük shard yenilnmesini gerçekleşitirir
+}, 86400000); //! Günlük shard yenilenmesini gerçekleşitirir
 
 manager.on("shardCreate", (shard) =>
   console.log(
-    `├──────────┬\n│ SHARDING │ -> Created shard ${shard.id}\n├──────────•`
+    `├──────────┬\n│ SHARDING │ -> ${shard.id} idli shard başlatıldı\n├──────────•`
   )
-);
+); //! Shard aktif olunca loga mesaj atmasını sağlar
 
-manager.spawn();
+manager.spawn(); //! Shard aktifleştirir

@@ -1,6 +1,6 @@
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || "8080";
+const express = require("express"); //! Express modülü
+const app = express(); //! Express to web
+const PORT = process.env.PORT || "8080"; //! Web port
 module.exports = (client) => {
   client.on("ready", async () => {
     app.get("/", function (req, res) {

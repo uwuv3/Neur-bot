@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+const fetch = require("node-fetch"); //! Website alma modülü
 async function hastebin(text) {
   const f = fetch("https://hastebin.uwuv3.repl.co/script", {
     headers: { "Content-Type": "text/plain" },

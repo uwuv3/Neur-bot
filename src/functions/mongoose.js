@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { config } = require("../../config");
+const mongoose = require("mongoose"); //! Database modülü
+const { config } = require("../../config"); //! config.js de olan ayarlar
 module.exports = (client) => {
   client.on("ready", async () => {
     mongoose

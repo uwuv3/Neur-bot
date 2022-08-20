@@ -6,10 +6,10 @@ const {
   Client,
 } = require("discord.js");
 const { emotes, config } = require("../../../config");
-const db = require("../../../db/boostlog");
+const db = require("../../../db/otorol");
 
 module.exports = {
-  name: "boost-log",
+  name: "otorol",
   aliases: [""],
   permission: ["ADMINISTRATOR"],
   cooldown: 5000,
@@ -21,35 +21,23 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (message, client, args) => {
-    if (args[0] == "aç") {
-      const { channelID } = (await db.findOne({
+    if (args[0] == "ayarla") {
+      const { channelID, roleID } = (await db.findOne({
         guildID: message.guild.id,
       })) || {
         channelID: null,
+        roleID: null,
       };
-      let id;
-      if (channelID) id = channelID;
-      let name;
-      if (id) name = await client.channels.cache.get(id).name;
-      if (!name) name = "null";
-      const button = new MessageActionRow().addComponents(
-        new MessageButton()
-          .setCustomId(message.author.id)
-          .setDisabled(true)
-          .setStyle("SECONDARY")
-          .setLabel(`Şu anki kanal: ${name}`)
-      );
-      if (channelID) {
+      if (channelID || roleID) {
         message.reply({
           embeds: [
             new MessageEmbed()
               .setColor(config.color)
               .setDescription(
                 emotes.carpi +
-                  "Databaseye göre bu sunucya ait bir boostlog kanalı var"
+                  "Databaseye göre bu sunucya ait bir otorol kanalı var"
               ),
           ],
-          components: [button],
           allowedMentions: { repiledUser: false },
         });
       } else {
@@ -74,22 +62,55 @@ module.exports = {
             ],
             allowedMentions: { repiledUser: false },
           });
-
+        const role = message.mentions.roles.first();
+        if (!role)
+          return message.reply({
+            allowedMentions: { repliedUser: false },
+            embeds: [
+              new MessageEmbed()
+                .setColor(config.color)
+                .setDescription(emotes.carpi + "Bir rol seç"),
+            ],
+          });
+        if (role.position > message.member.roles.highest.position)
+          return message.reply({
+            allowedMentions: { repliedUser: false },
+            embeds: [
+              new MessageEmbed()
+                .setColor(config.color)
+                .setDescription(
+                  emotes.carpi + "Rolün pozisyonu seninkinden üstün"
+                ),
+            ],
+          });
+        if (role.position > message.guild.me.roles.highest.position)
+          return message.reply({
+            allowedMentions: { repliedUser: false },
+            embeds: [
+              new MessageEmbed()
+                .setColor(config.color)
+                .setDescription(
+                  emotes.carpi + "Rolün pozisyonu benimkinden üstün"
+                ),
+            ],
+          });
         new db({
           guildID: message.guild.id,
           channelID: kanal.id,
+          roleID: role.id,
         }).save();
         message.reply({
           embeds: [
             new MessageEmbed()
               .setColor(config.color)
               .setDescription(
-                emotes.tik + `Boost log kanalı başarıyla ${kanal} ayarlandı!`
+                emotes.tik +
+                  `Otorol ayarlandı:\nKanal:**${kanal}**\nRol:**${role}**`
               ),
           ],
         });
       }
-    } else if (args[0] == "kapat") {
+    } else if (args[0] == "sıfırla") {
       let deneme = await db.findOne({ guildID: message.guild.id });
       if (!deneme)
         return message.reply({
@@ -97,7 +118,7 @@ module.exports = {
             new MessageEmbed()
               .setColor(config.color)
               .setDescription(
-                emotes.carpi + "Databasede bu sunucuya ait bir boostlog yok!"
+                emotes.carpi + "Databasede bu sunucuya ait bir otorol yok!"
               ),
           ],
         });
@@ -107,41 +128,21 @@ module.exports = {
             embeds: [
               new MessageEmbed()
                 .setColor(config.color)
-                .setDescription(
-                  emotes.tik + `Boost log kanalı başarıyla null ayarlandı!`
-                ),
+                .setDescription(emotes.tik + `Otorol sıfırlandı`),
             ],
           });
         });
       }
     } else {
-      const { channelID } = (await db.findOne({
-        guildID: message.guild.id,
-      })) || {
-        channelID: null,
-      };
-      let id;
-      if (channelID) id = channelID;
-      let name;
-      if (id) name = await client.channels.cache.get(id).name;
-      if (!name) name = "null";
-      const button = new MessageActionRow().addComponents(
-        new MessageButton()
-          .setCustomId(message.author.id)
-          .setDisabled(true)
-          .setStyle("SECONDARY")
-          .setLabel(`Şu anki kanal: ${name}`)
-      );
       message.reply({
         embeds: [
           new MessageEmbed()
             .setColor(config.color)
             .setDescription(
               emotes.carpi +
-                `Yanlış kullanım\nDoğru kullanım: **${config.prefix}boost-log <aç/kapat>**`
+                `Yanlış kullanım\nDoğru kullanım: **${config.prefix}otorol <ayarla/sıfırla>**`
             ),
         ],
-        components: [button],
         allowedMentions: { repiledUser: false },
       });
     }

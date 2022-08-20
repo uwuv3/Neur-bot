@@ -68,6 +68,17 @@ module.exports = {
             ),
         ],
       });
-    } catch (err) {}
+    } catch (err) {
+      message.channel.send({
+        embeds: [
+          new MessageEmbed()
+            .setColor(config.color)
+            .setDescription(
+              emotes.carpi +
+                "Discord 14 günden fazla olan mesajları silmeme izin vermiyor"
+            ),
+        ],
+      });
+    }
   },
 };

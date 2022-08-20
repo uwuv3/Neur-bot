@@ -1,4 +1,9 @@
 const config = {
+  uptime: {
+    guildID: "977635754392039435",
+    roleID: "1005176878367256617",
+    guildInvite: "https://nolur.com/",
+  },
   topggtoken: "",
   mongodburl:
     "mongodb+srv://uwuv3:rkzgkHg8FMcL2mal@cluster0.hktzrvl.mongodb.net/?retryWrites=true&w=majority", //! MOngodb bağlanması için URL
@@ -33,7 +38,7 @@ const config = {
   presence: {
     status: "", //!Kullanıcı durumu
     //TODO: online,idle,dnd,offline
-    activities: [`@NEUR - ?yardım`, "@NEUR - v0.0.7.23_BETA"], //! Botun oynuyor kısmı
+    activities: [`@NEUR - ?yardım`, "@NEUR - v0.0.7.52_BETA"], //! Botun oynuyor kısmı
     //TODO: Boş bırakma hata verir
     type: "Playing", //! Oynuyor kısmının type'ı
     //TODO: Playing,Streaming,Listening,Watching,Custom,Competing

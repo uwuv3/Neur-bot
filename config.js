@@ -16,7 +16,8 @@ const config = {
   //TODO: Renk kodu da koyabilirsin
   admins: [
     "984439714851479593", //* N๏ ภค๓є#8841
-    "830008975335489567", //* яєαм#8015
+    "830008975335489567", //* aѕѕaυlт_reaм#2922
+    "933833033579114506", //* Vᴏʟ†ᴇʀ Was here ?#7739
   ], //! Botun adminleri
   //TODO: Buraya kendi idni koy
   client: {

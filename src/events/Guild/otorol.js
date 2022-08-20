@@ -1,6 +1,7 @@
 const client = require("../../index");
 const db = require("../../../db/otorol");
 const { config } = require("../../../config");
+const { MessageEmbed } = require("discord.js");
 client.on("guildMemberAdd", async (member) => {
   const { channelID, roleID } = (await db.findOne({
     guildID: member.guild.id,

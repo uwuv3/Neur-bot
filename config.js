@@ -2,7 +2,7 @@ const config = {
   uptime: {
     guildID: "977635754392039435",
     roleID: "1005176878367256617",
-    guildInvite: "https://nolur.com/",
+    guildInvite: "https://discord.gg/mdM8DFm2Qv",
   },
   topggtoken: "",
   mongodburl:

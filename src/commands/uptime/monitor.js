@@ -38,7 +38,8 @@ module.exports = {
           new MessageEmbed()
             .setColor(config.color)
             .setDescription(
-              emotes.carpi + `Bu komudu kullanabilmek ${rol} rolü olması lazım`
+              emotes.carpi +
+                `Bu komudu kullanabilmek ${rol}\`${rol.name}\` rolü olması lazım`
             ),
         ],
       });

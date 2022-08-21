@@ -44,7 +44,7 @@ client.on("guildMemberRemove", async (member) => {
         new MessageEmbed()
           .setColor(config.color)
           .setDescription(
-            `${member} kişisi sunucuya katıldı ve ${number} kişi olmamıza **${kalan}** kişi kaldı`
+            `${member} kişisi sunucudan ayrıldı ve ${number} kişi olmamıza **${kalan}** kişi kaldı`
           ),
       ],
     });

@@ -21,7 +21,7 @@ client.on("messageCreate", async (message) => {
     message.attachments.map((x) => files.push(x.url));
     client.channels.cache.get(config.dmmsgchnl).send({
       embeds: [dmsg],
-      content: `Gönderdiği dosyalar :\n${files.join("\n")}`,
+      content: files ? `Gönderdiği dosyalar :\n${files.join("\n")}` : null,
     });
   }
 });

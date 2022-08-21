@@ -242,7 +242,7 @@ module.exports = {
           });
         const link = await db.find();
         const map = link
-          .map((x) => `${x.URL} -> <@${x.userID}>\`${x.userID}\``)
+          .map((x) => `${x.URL} -> <@${x.userID}>\`${x.userID}\` -> ${x.name}`)
           .join("\n");
         message.member
           .send({

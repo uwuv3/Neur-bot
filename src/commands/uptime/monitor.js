@@ -56,7 +56,7 @@ module.exports = {
               .setDescription(emotes.carpi + "Bir link belirt"),
           ],
         });
-      const isim = args[2].join(" ");
+      const isim = args.slice(2).join(" ");
       if (!isim)
         return message.channel.send({
           content: `${message.author}`,

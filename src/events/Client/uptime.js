@@ -10,7 +10,7 @@ client.on("ready", async () => {
         await uptime(b);
       });
     });
-  }, 60000);
+  }, 300000);
 });
 async function uptime(b) {
   const controller = new AbortController();

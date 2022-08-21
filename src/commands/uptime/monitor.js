@@ -56,6 +56,16 @@ module.exports = {
               .setDescription(emotes.carpi + "Bir link belirt"),
           ],
         });
+      const isim = args[2];
+      if (!isim)
+        return message.channel.send({
+          content: `${message.author}`,
+          embeds: [
+            new MessageEmbed()
+              .setColor(config.color)
+              .setDescription(emotes.carpi + "Bir isim belirt"),
+          ],
+        });
       else {
         /*  if(link.indexOf("http://") == -1 || link.indexOf("https://") == -1)
                {
@@ -80,7 +90,11 @@ module.exports = {
                       ),
                   ],
                 });
-              await new db({ userID: message.author.id, URL: x.url })
+              await new db({
+                name: isim,
+                userID: message.author.id,
+                URL: x.url,
+              })
                 .save()
                 .then((x) => {
                   message.channel.send({
@@ -132,7 +146,11 @@ module.exports = {
                       ),
                   ],
                 });
-              await new db({ userID: message.author.id, URL: x.url })
+              await new db({
+                name: isim,
+                userID: message.author.id,
+                URL: x.url,
+              })
                 .save()
                 .then((x) => {
                   message.channel.send({

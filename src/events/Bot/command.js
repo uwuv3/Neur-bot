@@ -2,6 +2,7 @@ const { config, emotes } = require("../../../config"); //! config.js de olan aya
 const client = require("../../index"); //! client(bot) gösterme
 const PermissionsFlags = require("../../../perm_flags"); //! Bot yetki listesi
 const { MessageEmbed } = require("discord.js"); //! Mesaj embed modülü
+const vip = require("../../../db/vip");
 const prefix = config.prefix;
 const command_cooldowns = global.cmd_cooldown;
 
@@ -42,7 +43,7 @@ client.on("messageCreate", async (message) => {
       });
   if (!message.member) client.users.cache.get(message.author.id);
   //Only
-  if (command.adminOnly === true) {
+  if (command.adminOnly) {
     if (!config.admins.includes(message.author.id))
       return message.reply({
         embeds: [
@@ -53,8 +54,19 @@ client.on("messageCreate", async (message) => {
         allowedMentions: { repliedUser: false },
       });
   }
+  if (command.vipOnly) {
+    const viptest = await vip.findOne({ userID: message.author.id });
+    if (!viptest)
+      return message.reply({
+        embeds: [
+          new MessageEmbed()
+            .setColor("RED")
+            .setDescription(emotes.carpi + "Bu komut botun viplerine özel"),
+        ],
+        allowedMentions: { repliedUser: false },
+      });
+  }
   //perm
-  if (!command) return;
   if (command.permission && command.permission.length) {
     for (const permission of command.permission) {
       if (!PermissionsFlags.includes(permission)) {

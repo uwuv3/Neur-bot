@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, WebhookClient, Webhook } = require("discord.js");
 const { config, emotes } = require("../../../config");
 const db = require("../../../db/linkler");
 const client = require("../../index");
@@ -8,32 +8,30 @@ client.on("ready", async () => {
     db.find({}, (err, res) => {
       res.forEach(async (b) => {
         try {
-          await fetch(b.URL).catch(async () => {
-            await db.deleteOne({ userID: b.userID, URL: b.URL }).then(() => {
-              client.users.cache.get(b.userID).send({
-                embeds: [
-                  new MessageEmbed()
-                    .setColor(config.color)
-                    .setDescription(
-                      emotes.carpi +
-                        `\`${b.URL}\` linkin bozulmuş gibi gözüküyor \n E ben bozuk linki napıyım`
-                    ),
-                ],
-              });
+          await fetch(b.URL).catch(async (x) => {
+            const wbclient = new WebhookClient({
+              url: config.uptime.webhookURL,
+            });
+            wbclient.send({
+              content: `<@${b.userID}`,
+              embeds: [
+                new MessageEmbed().setDescription(
+                  emotes.carpi + `${b.name} adlı websiteni uptime edemedim`
+                ),
+              ],
             });
           });
         } catch {
-          await db.deleteOne({ userID: b.userID, URL: b.URL }).then(() => {
-            client.users.cache.get(b.userID).send({
-              embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription(
-                    emotes.carpi +
-                      `\`${b.URL}\` linkin bozulmuş gibi gözüküyor \n E ben bozuk linki napıyım`
-                  ),
-              ],
-            });
+          const wbclient = new WebhookClient({
+            url: config.uptime.webhookURL,
+          });
+          wbclient.send({
+            content: `<@${b.userID}`,
+            embeds: [
+              new MessageEmbed().setDescription(
+                emotes.carpi + `${b.name} adlı websiteni uptime edemedim`
+              ),
+            ],
           });
         }
       });

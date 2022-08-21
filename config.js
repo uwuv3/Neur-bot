@@ -1,8 +1,10 @@
 const config = {
   uptime: {
     guildID: "977635754392039435",
-    roleID: "1005176878367256617",
+    roleID: "1010555155395117056",
     guildInvite: "https://discord.gg/mdM8DFm2Qv",
+    webhookURL:
+      "https://discord.com/api/webhooks/1010946009909710868/90kjGEeGpMe67FHeOcHJFkDKPLB8bCFrIm4dPECIQ2RLZEvtT8F4i19K6_bfceAJU7-P",
   },
   topggtoken: "",
   mongodburl:

@@ -50,8 +50,8 @@ const config = {
   },
 };
 const emotes = {
-  carpi: "<:no:1007310697341911040>",
-  tik: "<:yes:1007310699904643163>",
+  carpi: "",
+  tik: "",
   boost: "<a:boost:1008029593355161650>",
 };
 module.exports = { config, emotes };

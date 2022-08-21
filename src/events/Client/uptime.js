@@ -25,11 +25,13 @@ async function uptime(b) {
         url: config.uptime.webhookURL,
       });
       wbclient.send({
-        content: `<@${b.userID}`,
+        content: `<@${b.userID}>`,
         embeds: [
-          new MessageEmbed().setDescription(
-            emotes.carpi + `${b.name} adlı websiteni uptime edemedim`
-          ),
+          new MessageEmbed()
+            .setColor(config.color)
+            .setDescription(
+              emotes.carpi + `**${b.name}** adlı websiteni uptime edemedim`
+            ),
         ],
       });
     });
@@ -38,11 +40,13 @@ async function uptime(b) {
       url: config.uptime.webhookURL,
     });
     wbclient.send({
-      content: `<@${b.userID}`,
+      content: `<@${b.userID}>`,
       embeds: [
-        new MessageEmbed().setDescription(
-          emotes.carpi + `${b.name} adlı websiteni uptime edemedim`
-        ),
+        new MessageEmbed()
+          .setColor(config.color)
+          .setDescription(
+            emotes.carpi + `**${b.name}** adlı websiteni uptime edemedim`
+          ),
       ],
     });
   }

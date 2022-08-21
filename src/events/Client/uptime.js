@@ -13,8 +13,14 @@ client.on("ready", async () => {
   }, 60000);
 });
 async function uptime(b) {
+  const controller = new AbortController();
+  const signal = controller.signal;
+  setTimeout(() => {
+    controller.abort();
+  }, 10000);
+
   try {
-    await fetch(b.URL).catch(async (x) => {
+    await fetch(b.URL, { signal }).catch(async (x) => {
       const wbclient = new WebhookClient({
         url: config.uptime.webhookURL,
       });

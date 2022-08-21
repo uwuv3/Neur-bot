@@ -1,6 +1,10 @@
 const { config } = require("../../../config"); //! config.js de olan ayarlar
 const client = require("../../index"); //! client(bot) görme
 client.on("ready", async () => {
+  client.application.commands.cache.map((x) => {
+    x.delete();
+    console.log("Deleted :" + x.id);
+  });
   if (!config.presence.status.length == 0)
     client.user.setStatus(config.presence.status.toLowerCase());
 

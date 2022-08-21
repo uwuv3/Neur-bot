@@ -21,7 +21,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (message, client, args) => {
-    if (args[0] == "aç") {
+    if (args[0] == "ayarla") {
       const { channelID } = (await db.findOne({
         guildID: message.guild.id,
       })) || {
@@ -89,7 +89,7 @@ module.exports = {
           ],
         });
       }
-    } else if (args[0] == "kapat") {
+    } else if (args[0] == "sıfırla") {
       let deneme = await db.findOne({ guildID: message.guild.id });
       if (!deneme)
         return message.reply({
@@ -138,7 +138,7 @@ module.exports = {
             .setColor(config.color)
             .setDescription(
               emotes.carpi +
-                `Yanlış kullanım\nDoğru kullanım: **${config.prefix}boost-log <aç/kapat>**`
+                `Yanlış kullanım\nDoğru kullanım: **${config.prefix}boost-log <ayarla/sıfırla>**`
             ),
         ],
         components: [button],

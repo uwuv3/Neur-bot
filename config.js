@@ -12,7 +12,7 @@ const config = {
   //TODO: Boş bırakma bot çalışmaz
   prefix: "?", //! Botun prefixi
   //TODO: !,?,> koyabilirsin
-  dmmsgchnl: "977846930975633438", //! Dmden mesaj gelince mesajı kanala gönderme
+  dmmsgchnl: "1010966336148623401", //! Dmden mesaj gelince mesajı kanala gönderme
   //TODO : Kanal id yerleştir
   color: "DARK_RED", //! Embed rengi
   //TODO: Renk kodu da koyabilirsin

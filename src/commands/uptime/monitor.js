@@ -1,4 +1,10 @@
-const { MessageEmbed, Message, Client } = require("discord.js");
+const {
+  MessageEmbed,
+  Message,
+  Client,
+  WebhookClient,
+  Webhook,
+} = require("discord.js");
 const { default: fetch } = require("node-fetch");
 const { config, emotes } = require("../../../config");
 const db = require("../../../db/linkler");

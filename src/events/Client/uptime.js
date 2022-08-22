@@ -3,15 +3,13 @@ const { config, emotes } = require("../../../config");
 const db = require("../../../db/linkler");
 const client = require("../../index");
 const fetch = require("node-fetch");
-client.on("ready", async () => {
-  setInterval(() => {
-    db.find({}, (err, res) => {
-      res.forEach(async (b) => {
-        await uptime(b);
-      });
+setInterval(() => {
+  db.find({}, (err, res) => {
+    res.forEach(async (b) => {
+      await uptime(b);
     });
-  }, 180000);
-});
+  });
+}, 180000);
 async function uptime(b) {
   const controller = new AbortController();
   const signal = controller.signal;

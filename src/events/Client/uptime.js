@@ -20,7 +20,7 @@ async function uptime(b) {
   }, 10000);
 
   try {
-    await fetch(b.URL, { signal }).catch(async (x) => {
+    const res = await fetch(b.URL, { signal }).catch(async (x) => {
       const wbclient = new WebhookClient({
         url: config.uptime.webhookURL,
       });
@@ -30,12 +30,31 @@ async function uptime(b) {
           new MessageEmbed()
             .setColor(config.color)
             .setDescription(
-              emotes.carpi + `**${b.name}** adlı websiteni uptime edemedim`
+              emotes.carpi +
+                `**${b.name}** adlı websiteni uptime edemedim\n Sebep: **${x}**`
             ),
         ],
       });
     });
-  } catch {
+
+    if (!res.ok) {
+      const wbclient = new WebhookClient({
+        url: config.uptime.webhookURL,
+      });
+
+      wbclient.send({
+        content: `<@${b.userID}>`,
+        embeds: [
+          new MessageEmbed()
+            .setColor(config.color)
+            .setDescription(
+              emotes.carpi +
+                `**${b.name}** adlı websiteni uptime edemedim\n Sebep: Invalid status:**${res.status}** `
+            ),
+        ],
+      });
+    }
+  } catch (x) {
     const wbclient = new WebhookClient({
       url: config.uptime.webhookURL,
     });
@@ -45,7 +64,8 @@ async function uptime(b) {
         new MessageEmbed()
           .setColor(config.color)
           .setDescription(
-            emotes.carpi + `**${b.name}** adlı websiteni uptime edemedim`
+            emotes.carpi +
+              `**${b.name}** adlı websiteni uptime edemedim\n Sebep: **${x}**`
           ),
       ],
     });

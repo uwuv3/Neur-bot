@@ -97,6 +97,19 @@ module.exports = {
               })
                 .save()
                 .then((x) => {
+                  const wbclient = new WebhookClient({
+                    url: config.uptime.webhookURL,
+                  });
+                  wbclient.send({
+                    embeds: [
+                      new MessageEmbed()
+                        .setColor(config.color)
+                        .setDescription(
+                          emotes.tik +
+                            `<@${x.userID}> tarafından **${x.name}** adlı websitesi eklendi!`
+                        ),
+                    ],
+                  });
                   message.channel.send({
                     content: `${message.author}`,
                     embeds: [
@@ -153,6 +166,19 @@ module.exports = {
               })
                 .save()
                 .then((x) => {
+                  const wbclient = new WebhookClient({
+                    url: config.uptime.webhookURL,
+                  });
+                  wbclient.send({
+                    embeds: [
+                      new MessageEmbed()
+                        .setColor(config.color)
+                        .setDescription(
+                          emotes.tik +
+                            `<@${x.userID}> tarafından **${x.name}** adlı websitesi eklendi!`
+                        ),
+                    ],
+                  });
                   message.channel.send({
                     content: `${message.author}`,
                     embeds: [
@@ -195,6 +221,19 @@ module.exports = {
           });
           if (tarama) {
             await db.deleteOne({ userID: message.author.id, URL: x.url });
+            const wbclient = new WebhookClient({
+              url: config.uptime.webhookURL,
+            });
+            wbclient.send({
+              embeds: [
+                new MessageEmbed()
+                  .setColor(config.color)
+                  .setDescription(
+                    emotes.tik +
+                      `<@${tarama.userID}> tarafından **${tarama.name}** adlı websitesi kaldırıldı!`
+                  ),
+              ],
+            });
             message.channel.send({
               content: `${message.author}`,
               embeds: [

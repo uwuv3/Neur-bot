@@ -25,13 +25,12 @@ async function uptime(b) {
         url: config.uptime.webhookURL,
       });
       wbclient.send({
-        content: `<@${b.userID}>`,
         embeds: [
           new MessageEmbed()
             .setColor(config.color)
             .setDescription(
               emotes.carpi +
-                `**${b.name}** adlı websiteni uptime edemedim\n Sebep: **${x}**`
+                `<@${b.userID}> kişisinin **${b.name}** adlı websiteni uptime edemedim\n Sebep: **${x}**`
             ),
         ],
       });
@@ -43,13 +42,12 @@ async function uptime(b) {
       });
 
       wbclient.send({
-        content: `<@${b.userID}>`,
         embeds: [
           new MessageEmbed()
             .setColor(config.color)
             .setDescription(
               emotes.carpi +
-                `**${b.name}** adlı websiteni uptime edemedim\n Sebep: Invalid status:**${res.status}** `
+                `<@${b.userID}> kişisinin **${b.name}** adlı websiteni uptime edemedim\n Sebep: Invalid status:**${res.status}** `
             ),
         ],
       });
@@ -59,13 +57,12 @@ async function uptime(b) {
       url: config.uptime.webhookURL,
     });
     wbclient.send({
-      content: `<@${b.userID}>`,
       embeds: [
         new MessageEmbed()
           .setColor(config.color)
           .setDescription(
             emotes.carpi +
-              `**${b.name}** adlı websiteni uptime edemedim\n Sebep: **${x}**`
+              `<@${b.userID}> kişisinin **${b.name}** adlı websiteni uptime edemedim\n Sebep: **${x}**`
           ),
       ],
     });

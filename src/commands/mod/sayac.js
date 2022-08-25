@@ -106,18 +106,18 @@ module.exports = {
           ],
         });
       else {
-        await db.deleteOne({ guildID: message.guild.id }).then((x) => {
+        await db.deleteOne({ guildID: message.guild.id }).then(async (x) => {
           message.reply({
-            embeds: [
-  await succesEmbed("Sayaç sıfırlandı")
-            ],
+            embeds: [await succesEmbed("Sayaç sıfırlandı")],
           });
         });
       }
     } else {
       message.reply({
         embeds: [
-         await errorEmbed("Yanlış kullanım\nDoğru kullanım **{{prefix}}sayaç <ayarla-sıfırla>**")
+          await errorEmbed(
+            "Yanlış kullanım\nDoğru kullanım **{{prefix}}sayaç <ayarla-sıfırla>**"
+          ),
         ],
         allowedMentions: { repiledUser: false },
       });

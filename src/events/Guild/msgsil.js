@@ -1,5 +1,6 @@
 const client = require("../../index");
 client.msgsil = new Set();
+
 client.on("ready", async () => {
   setInterval(() => {
     client.channels.cache.each((Kanal) => {

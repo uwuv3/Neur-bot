@@ -24,7 +24,7 @@ async function succesEmbed(message) {
     return embed;
   } else {
     const embed = new MessageEmbed()
-      .setDescription(`Başarılı!`)
+      .setDescription(`Başarılı`)
       .setColor(config.color);
     return embed;
   }

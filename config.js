@@ -8,7 +8,7 @@ const config = {
   },
   topggtoken: "",
   mongodburl:
-    "mongodb+srv://uwuv3:rkzgkHg8FMcL2mal@cluster0.hktzrvl.mongodb.net/?retryWrites=true&w=majority", //! MOngodb bağlanması için URL
+    "mongodb+srv://uwuv3:rkzgkHg8FMcL2mal@cluster0.hktzrvl.mongodb.net/?retryWrites=true&w=majority", //! Mongodb bağlanması için URL
   //TODO: Boş bırakma bot çalışmaz
   prefix: "?", //! Botun prefixi
   //TODO: !,?,> koyabilirsin

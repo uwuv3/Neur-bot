@@ -30,6 +30,7 @@
     "fs": "^0.0.1-security",
     "mongoose": "^6.5.2",
     "node-fetch": "^2.6.7",
+    "nukleon": "^0.0.2",
     "os": "^0.1.2"
   }
 }

@@ -90,10 +90,10 @@ module.exports = {
           ],
         });
       else {
-        await db.deleteOne({ guildID: message.guild.id }).then((x) => {
+        await db.deleteOne({ guildID: message.guild.id }).then(async (x) => {
           message.reply({
             embeds: [
-            await succesEmbed("Başarıyla boost-log kanalı ayarlandı\nKanal:null")
+              await succesEmbed("Başarıyla boost-log kanalı sıfırlandı"),
             ],
           });
         });
@@ -118,7 +118,9 @@ module.exports = {
       );
       message.reply({
         embeds: [
-          await errorEmbed("Yanlış kullanım\nDoğru kullanım **{{prefix}}boost-log <ayarla-sıfırla>**")
+          await errorEmbed(
+            "Yanlış kullanım\nDoğru kullanım **{{prefix}}boost-log <ayarla-sıfırla>**"
+          ),
         ],
         components: [button],
         allowedMentions: { repiledUser: false },

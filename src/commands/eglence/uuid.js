@@ -1,6 +1,6 @@
 const { MessageEmbed, Message, Client } = require("discord.js");
 const { config, emotes } = require("../../../config");
-const { succesEmbed } = require("../../scripts/embeds");
+const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
 const generateUUID = require("../../scripts/generateUUID");
 module.exports = {
   name: "uuid",
@@ -18,7 +18,7 @@ module.exports = {
     const uuid = await generateUUID();
     message.member
       .send({ content: `\`\`\`\n${uuid}\n\`\`\`` })
-      .then(() => {
+      .then(async() => {
         message.reply({
           embeds: [
            await succesEmbed("Güvenlik için DM kanalına attım")

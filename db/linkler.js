@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 module.exports = model(
   "link",
   new Schema({
-    name: String,
+    UUID: String,
     userID: String,
     URL: String,
   })

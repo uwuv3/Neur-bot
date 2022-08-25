@@ -9,6 +9,8 @@ const { default: fetch } = require("node-fetch");
 const { config, emotes } = require("../../../config");
 const db = require("../../../db/linkler");
 const db2 = require("../../../db/vip");
+const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
+const generateUUID = require("../../scripts/generateUUID");
 module.exports = {
   name: "uptime",
   aliases: [],
@@ -28,25 +30,9 @@ module.exports = {
       return message.reply({
         allowedMentions: { repliedUser: false },
         embeds: [
-          new MessageEmbed()
-            .setColor(config.color)
-            .setDescription(
-              emotes.carpi +
-                `Bu komutu kullanabilmen için sunucumuza katılman gerek\n [DISCORD](${config.uptime.guildInvite})`
-            ),
-        ],
-      });
-    const rol = sunucu.roles.cache.get(config.uptime.roleID);
-    if (!durum.roles.cache.get(config.uptime.roleID))
-      return message.reply({
-        allowedMentions: { repliedUser: false },
-        embeds: [
-          new MessageEmbed()
-            .setColor(config.color)
-            .setDescription(
-              emotes.carpi +
-                `Bu komudu kullanabilmek ${rol}\`${rol.name}\` rolü olması lazım`
-            ),
+          await errorEmbed(
+            `Bu komudu kullanabilmek için **\`[DISCORD](${config.uptime.guildID})\`** sunucumuza katılmanız lazım`
+          ),
         ],
       });
     const değer = args[0];
@@ -57,20 +43,16 @@ module.exports = {
         return message.channel.send({
           content: `${message.author}`,
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(emotes.carpi + "Bir link belirt"),
+            await errorEmbed(
+              "Yanlış kullanım\nDoğru kullanım **{{prefix}}uptime ekle <link>**"
+            ),
           ],
         });
-      const isim = args.slice(2).join(" ");
-      if (!isim)
+      const uuid = await generateUUID();
+      if (!uuid)
         return message.channel.send({
           content: `${message.author}`,
-          embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(emotes.carpi + "Bir isim belirt"),
-          ],
+          embeds: [await errorEmbed()],
         });
       else {
         /*  if(link.indexOf("http://") == -1 || link.indexOf("https://") == -1)
@@ -88,40 +70,38 @@ module.exports = {
                 return message.channel.send({
                   content: `${message.author}`,
                   embeds: [
-                    new MessageEmbed()
-                      .setColor(config.color)
-                      .setDescription(
-                        emotes.carpi +
-                          "Bu link sen ya da başka birisi tarafından eklenmiş"
-                      ),
+                    await errorEmbed(
+                      "Bu link sen ya da başka birisi tarafından eklenmiş"
+                    ),
                   ],
                 });
               await new db({
-                name: isim,
+                UUID: uuid,
                 userID: message.author.id,
                 URL: x.url,
               })
                 .save()
-                .then((x) => {
+                .then(async (x) => {
                   const wbclient = new WebhookClient({
                     url: config.uptime.webhookURL,
                   });
                   wbclient.send({
                     embeds: [
-                      new MessageEmbed()
-                        .setColor(config.color)
-                        .setDescription(
-                          emotes.tik +
-                            `<@${x.userID}> tarafından **${x.name}** adlı websitesi eklendi!`
-                        ),
+                      await succesEmbed(
+                        `<@${x.userID}> tarafından **${uuid}** uuidli websitesi eklendi!`
+                      ),
                     ],
                   });
                   message.channel.send({
                     content: `${message.author}`,
                     embeds: [
-                      new MessageEmbed()
-                        .setColor(config.color)
-                        .setDescription(emotes.tik + "URL Başarıyla eklendi"),
+                      await succesEmbed(
+                        `**${uuid}** uuidli websiten başarıyla eklendi!`
+                      ).then((embed) =>
+                        embed.setFooter({
+                          text: "UUID'ler silme işleminde geçersizdir",
+                        })
+                      ),
                     ],
                   });
                 });
@@ -129,11 +109,7 @@ module.exports = {
           } catch {
             message.channel.send({
               content: `${message.author}`,
-              embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription(emotes.carpi + "Lütfen doğru bir url verin"),
-              ],
+              embeds: [await errorEmbed("Geçerli bir URL girin")],
             });
           }
         } else {
@@ -142,67 +118,56 @@ module.exports = {
             message.channel.send({
               content: `${message.author}`,
               embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription(
-                    emotes.carpi +
-                      "En fazla 5 tane link ekleyebilirsin \n Eğer daha fazla link eklemek istiyorsan **VIP** üyeliğine ne dersin?"
-                  ),
+                await errorEmbed(
+                  "Görünüşe bakılırsa **5** adet URL ekleme sınırına ulaşmışsın\nEğer daha fazla URL eklemek istiyorsan **VIP**'ye ne dersin?"
+                ),
               ],
             });
           try {
-            fetch(link).then(async (x) => {
-              const tarama = await db.findOne({ URL: x.url });
-              if (tarama)
-                return message.channel.send({
-                  content: `${message.author}`,
+            const tarama = await db.findOne({ URL: x.url });
+            if (tarama)
+              return message.channel.send({
+                content: `${message.author}`,
+                embeds: [
+                  await errorEmbed(
+                    "Bu link sen ya da başka birisi tarafından eklenmiş"
+                  ),
+                ],
+              });
+            await new db({
+              UUID: uuid,
+              userID: message.author.id,
+              URL: x.url,
+            })
+              .save()
+              .then(async (x) => {
+                const wbclient = new WebhookClient({
+                  url: config.uptime.webhookURL,
+                });
+                wbclient.send({
                   embeds: [
-                    new MessageEmbed()
-                      .setColor(config.color)
-                      .setDescription(
-                        emotes.carpi +
-                          "Bu link sen ya da başka birisi tarafından eklenmiş"
-                      ),
+                    await succesEmbed(
+                      `<@${x.userID}> tarafından **${uuid}** uuidli websitesi eklendi!`
+                    ),
                   ],
                 });
-              await new db({
-                name: isim,
-                userID: message.author.id,
-                URL: x.url,
-              })
-                .save()
-                .then((x) => {
-                  const wbclient = new WebhookClient({
-                    url: config.uptime.webhookURL,
-                  });
-                  wbclient.send({
-                    embeds: [
-                      new MessageEmbed()
-                        .setColor(config.color)
-                        .setDescription(
-                          emotes.tik +
-                            `<@${x.userID}> tarafından **${x.name}** adlı websitesi eklendi!`
-                        ),
-                    ],
-                  });
-                  message.channel.send({
-                    content: `${message.author}`,
-                    embeds: [
-                      new MessageEmbed()
-                        .setColor(config.color)
-                        .setDescription(emotes.tik + "URL Başarıyla eklendi"),
-                    ],
-                  });
+                message.channel.send({
+                  content: `${message.author}`,
+                  embeds: [
+                    await succesEmbed(
+                      `**${uuid}** uuidli websiten başarıyla eklendi!`
+                    ).then((embed) =>
+                      embed.setFooter({
+                        text: "UUID'ler silme işleminde geçersizdir",
+                      })
+                    ),
+                  ],
                 });
-            });
+              });
           } catch {
             message.channel.send({
               content: `${message.author}`,
-              embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription(emotes.carpi + "Lütfen doğru bir url verin"),
-              ],
+              embeds: [await errorEmbed("Geçerli bir URL girin")],
             });
           }
         }
@@ -214,9 +179,9 @@ module.exports = {
         return message.channel.send({
           content: `${message.author}`,
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(emotes.carpi + "Bir link belirt"),
+            await errorEmbed(
+              "Yanlış kullanım\nDoğru kullanım **{{prefix}}uptime sil <link>**"
+            ),
           ],
         });
       try {
@@ -232,119 +197,79 @@ module.exports = {
             });
             wbclient.send({
               embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription(
-                    emotes.tik +
-                      `<@${tarama.userID}> tarafından **${tarama.name}** adlı websitesi kaldırıldı!`
-                  ),
+                await succesEmbed(
+                  `<@${tarama.userID}> tarafından **${tarama.UUID}** uuidli websitesi silindi!`
+                ),
               ],
             });
             message.channel.send({
               content: `${message.author}`,
               embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription(emotes.tik + "Başarıyla link silindi"),
+                await succesEmbed(
+                  `**${tarama.UUID}** uuidli websiten silindi!`
+                ),
               ],
             });
           } else {
             message.channel.send({
               content: `${message.author}`,
-              embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription(
-                    emotes.carpi + "Databasede böyle bir link bulamadım"
-                  ),
-              ],
+              embeds: [await errorEmbed("Böyle bir link bulamadım")],
             });
           }
         });
       } catch {
         message.channel.send({
           content: `${message.author}`,
-          embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(emotes.carpi + "Hata çıktı ,Böyle bir URL yok"),
-          ],
+          embeds: [await errorEmbed()],
         });
       }
     } else if (değer === "liste") {
       const değer = args[1];
       if (değer === "tüm") {
-        if (!config.admins.includes(message.author.id))
-          return message.reply({
-            embeds: [
-              new MessageEmbed()
-                .setColor("RED")
-                .setDescription(
-                  emotes.carpi + "Bu komut botun adminlerine özel"
-                ),
-            ],
-            allowedMentions: { repliedUser: false },
-          });
-        const link = await db.find();
-        const map = link
-          .map((x) => `${x.URL} -> <@${x.userID}>\`${x.userID}\` -> ${x.name}`)
-          .join("\n");
-        message.member
-          .send({
-            embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(map ? map : "Link bulunamadı"),
-            ],
-          })
-          .then((x) => {
-            message.reply({
-              embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription("DM'ye bak"),
-              ],
-            });
-          })
-          .catch((x) => {
-            message.reply({
-              embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription(
+        if (config.admins.includes(message.author.id)) {
+          const link = await db.find();
+          const map = link
+            .map(
+              (x) => `${x.URL} -> <@${x.userID}>\`${x.userID}\` -> ${x.UUID}`
+            )
+            .join("\n");
+          message.member
+            .send({
+              embeds: [await succesEmbed(map ? map : "Link bulunamadı")],
+            })
+            .then(async (x) => {
+              message.reply({
+                embeds: [await succesEmbed("DM'ye bak")],
+              });
+            })
+            .catch(async (x) => {
+              message.reply({
+                embeds: [
+                  await errorEmbed(
                     "DM'ye atamıyorum , Burası güvenli değil, DM'ye açtıktan sonra atabilirim"
                   ),
-              ],
+                ],
+              });
             });
-          });
+        }
       } else {
         const link = await db.find({ userID: message.author.id });
-        const map = link.map((x) => x.URL).join("\n");
+        const map = link.map((x) => `${x.URL} -> ${x.UUID}`).join("\n");
         message.member
           .send({
-            embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(map ? map : "Link bulunamadı"),
-            ],
+            embeds: [await succesEmbed(map ? map : "Link bulunamadı")],
           })
-          .then((x) => {
+          .then(async (x) => {
             message.reply({
-              embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription("DM'ye bak"),
-              ],
+              embeds: [await succesEmbed("DM'ye bak")],
             });
           })
-          .catch((x) => {
+          .catch(async (x) => {
             message.reply({
               embeds: [
-                new MessageEmbed()
-                  .setColor(config.color)
-                  .setDescription(
-                    "DM'ye atamıyorum , Burası güvenli değil, DM'ye açtıktan sonra atabilirim"
-                  ),
+                await errorEmbed(
+                  "DM'ye atamıyorum , Burası güvenli değil, DM'ye açtıktan sonra atabilirim"
+                ),
               ],
             });
           });
@@ -353,12 +278,9 @@ module.exports = {
       message.reply({
         allowedMentions: { repliedUser: false },
         embeds: [
-          new MessageEmbed()
-            .setColor(config.color)
-            .setDescription(
-              emotes.carpi +
-                `Yanlış kullanım\nDoğru kullanım:**${config.prefix}uptime <ekle/sil/liste>**`
-            ),
+          await errorEmbed(
+            "Yanlış kullanım\nDoğru kullanım:**{{prefix}}uptime <ekle/sil/liste>**"
+          ),
         ],
       });
     }

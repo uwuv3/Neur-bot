@@ -96,18 +96,18 @@ module.exports = {
           ],
         });
       else {
-        await db.deleteOne({ guildID: message.guild.id }).then((x) => {
+        await db.deleteOne({ guildID: message.guild.id }).then(async (x) => {
           message.reply({
-            embeds: [
-             await succesEmbed("Başarılya otorol sıfırlandı")
-            ],
+            embeds: [await succesEmbed("Başarılya otorol sıfırlandı")],
           });
         });
       }
     } else {
       message.reply({
         embeds: [
-         await errorEmbed("Yanlış kullanım\nDoğru kullanım **{{prefix}}otorol <ayarla-sıfırla>")
+          await errorEmbed(
+            "Yanlış kullanım\nDoğru kullanım **{{prefix}}otorol <ayarla-sıfırla>"
+          ),
         ],
         allowedMentions: { repiledUser: false },
       });

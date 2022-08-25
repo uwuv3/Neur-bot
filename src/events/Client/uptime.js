@@ -38,19 +38,25 @@ async function uptime(b) {
   }, 10000);
 
   try {
-    const res = await fetch(b.URL, { signal }).then(()=>nukleondb.set(`${b.URL}`,0)).catch(async (x) => {
-      const wbclient = new WebhookClient({
-        url: config.uptime.webhookURL,
+    const res = await fetch(b.URL, { signal })
+      .then(async () => {
+        if (await nukleondb.has(`${b.URL}`)) {
+          await nukleondb.remove(`${b.URL}`);
+        }
+      })
+      .catch(async (x) => {
+        const wbclient = new WebhookClient({
+          url: config.uptime.webhookURL,
+        });
+        nukleondb.add(`${b.URL}`, 1);
+        wbclient.send({
+          embeds: [
+            await errorEmbed(
+              `<@${b.userID}> kişisinin **${b.UUID}** UUIDli websiteni uptime edemedim\n Sebep: **${x}**`
+            ),
+          ],
+        });
       });
-      nukleondb.add(`${b.URL}`, 1);
-      wbclient.send({
-        embeds: [
-          await errorEmbed(
-            `<@${b.userID}> kişisinin **${b.UUID}** UUIDli websiteni uptime edemedim\n Sebep: **${x}**`
-          ),
-        ],
-      });
-    });
   } catch (x) {
     const wbclient = new WebhookClient({
       url: config.uptime.webhookURL,

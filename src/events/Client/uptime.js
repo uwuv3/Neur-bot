@@ -38,7 +38,7 @@ async function uptime(b) {
   }, 10000);
 
   try {
-    const res = await fetch(b.URL, { signal }).then(()=>nukleondb.remove(`${b.URL}`)).catch(async (x) => {
+    const res = await fetch(b.URL, { signal }).then(()=>nukleondb.set(`${b.URL}`,0)).catch(async (x) => {
       const wbclient = new WebhookClient({
         url: config.uptime.webhookURL,
       });

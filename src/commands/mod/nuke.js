@@ -1,5 +1,6 @@
 const { MessageEmbed, Message, Client } = require("discord.js");
 const { emotes } = require("../../../config");
+const { succesEmbed } = require("../../scripts/embeds");
 module.exports = {
   name: "nuke",
   aliases: [""],
@@ -19,11 +20,7 @@ module.exports = {
       await channel.delete();
       await chnl.send({
         embeds: [
-          new MessageEmbed()
-            .setDescription(
-              emotes.tik + `Kanala ${message.author} tarafından nuke atıldı`
-            )
-            .setColor("GREEN"),
+          await succesEmbed(`Kanal ${message.author} tarafından nuke atıldı`),
         ],
       });
     });

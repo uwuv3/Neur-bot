@@ -1,5 +1,6 @@
 const { MessageEmbed, Message, Client } = require("discord.js");
 const { config, emotes } = require("../../../config");
+const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
 module.exports = {
   name: "sil",
   aliases: [],
@@ -18,65 +19,46 @@ module.exports = {
       if (!amonut)
         return message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.carpi +
-                  `Yanlış kullanım\nDoğru kullanım: **${config.prefix}sil <sayı>**`
-              ),
+            await errorEmbed(
+              "Yanlış kullanım\nDoğru kullanım **{{prefix}}sil <sayı>**"
+            ),
           ],
           allowedMentions: { repliedUser: false },
         });
       if (isNaN(amonut))
         return message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.carpi +
-                  `Yanlış kullanım\nDoğru kullanım: **${config.prefix}sil <sayı>**`
-              ),
+            await errorEmbed(
+              "Yanlış kullanım\nDoğru kullanım **{{prefix}}sil <sayı>**"
+            ),
           ],
           allowedMentions: { repliedUser: false },
         });
       if (amonut < 5)
         return message.reply({
-          embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(emotes.carpi + `Sayı değeri en az **5**`),
-          ],
+          embeds: [await errorEmbed("En az **5** tane mesaj silebilirim ")],
           allowedMentions: { repliedUser: false },
         });
 
       if (amonut > 99)
         return message.reply({
-          embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(emotes.carpi + `Sayı değeri en fazla **99**`),
-          ],
+          embeds: [await errorEmbed("En fazla **99** mesaj silebilirim")],
           allowedMentions: { repliedUser: false },
         });
       await message.channel.bulkDelete(amonut);
       message.reply({
         embeds: [
-          new MessageEmbed()
-            .setColor(config.color)
-            .setDescription(
-              `${emotes.tik} Başarılı\n**${amonut}** kadar mesaj silme komudu emredildi`
-            ),
+          await succesEmbed(
+            `Başarılı\n**${amonut}** kadar mesaj silme komudu emredildi`
+          ),
         ],
       });
     } catch (err) {
       message.channel.send({
         embeds: [
-          new MessageEmbed()
-            .setColor(config.color)
-            .setDescription(
-              emotes.carpi +
-                "Discord 14 günden fazla olan mesajları silmeme izin vermiyor"
-            ),
+          await errorEmbed(
+            "Discord 14 günden fazla olan mesajları silmeme izin vermiyor"
+          ),
         ],
       });
     }

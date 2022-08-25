@@ -7,6 +7,7 @@ const {
 } = require("discord.js");
 const { emotes, config } = require("../../../config");
 const db = require("../../../db/sayac");
+const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
 
 module.exports = {
   name: "sayaç",
@@ -31,12 +32,9 @@ module.exports = {
       if (channelID || number) {
         message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.carpi +
-                  "Databaseye göre bu sunucya ait bir sayaç kanalı var"
-              ),
+            await errorEmbed(
+              "Databasede sayaç kanalı var\nSıfırlamak için **{{prefix}}sayaç sıfırla"
+            ),
           ],
           allowedMentions: { repiledUser: false },
         });
@@ -45,21 +43,15 @@ module.exports = {
         if (!kanal)
           return message.reply({
             embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(emotes.carpi + "Bir kanal seç"),
+              await errorEmbed(
+                "Yanlış kullanım\nDoğru kullanım **{{prefix}}sayaç ayarla <kanal>**"
+              ),
             ],
             allowedMentions: { repiledUser: false },
           });
         if (!kanal.type === "GUILD_TEXT")
           return message.reply({
-            embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(
-                  emotes.carpi + "Seçtiğin kanal bir yazı kanalı olmalı"
-                ),
-            ],
+            embeds: [await errorEmbed()],
             allowedMentions: { repiledUser: false },
           });
         const number = args[2];
@@ -67,27 +59,27 @@ module.exports = {
           return message.reply({
             allowedMentions: { repliedUser: false },
             embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(emotes.carpi + "Bir sayı yaz"),
+              await errorEmbed(
+                "Yanlış kullanım\nDoğru kullanım **{{prefix}}sayaç ayarla kanal <sayı>**"
+              ),
             ],
           });
         if (isNaN(number))
           return message.reply({
             allowedMentions: { repliedUser: false },
             embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(emotes.carpi + "Bir sayı yaz"),
+              await errorEmbed(
+                "Yanlış kullanım\nDoğru kullanım **{{prefix}}sayaç ayarla kanal <sayı>**"
+              ),
             ],
           });
         if (number < 100)
           return message.reply({
             allowedMentions: { repliedUser: false },
             embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(emotes.carpi + "Sayı en az **100** olmalı"),
+              await errorEmbed("Sayı en fazla **100** olmalı").setFooter({
+                text: "100 kişiye ulaştığında +50 eklenir",
+              }),
             ],
           });
         new db({
@@ -97,12 +89,9 @@ module.exports = {
         }).save();
         message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.tik +
-                  `Sayaç ayarlandı:\nKanal:**${kanal}**\nSayı:**${number}**`
-              ),
+            await succesEmbed(
+              `Sayaç ayarlandı\nKanal:${kanal}\nSayı:${number}`
+            ),
           ],
         });
       }
@@ -111,20 +100,16 @@ module.exports = {
       if (!deneme)
         return message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.carpi + "Databasede bu sunucuya ait bir sayaç yok!"
-              ),
+            await errorEmbed(
+              "Databasede bu sunucuya ait bir sayaç kanalı,sayısı yok\nAyarlamak için **{{prefix}}sayaç ayarla**"
+            ),
           ],
         });
       else {
         await db.deleteOne({ guildID: message.guild.id }).then((x) => {
           message.reply({
             embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(emotes.tik + `Sayaç sıfırlandı`),
+  await succesEmbed("Sayaç sıfırlandı")
             ],
           });
         });
@@ -132,12 +117,7 @@ module.exports = {
     } else {
       message.reply({
         embeds: [
-          new MessageEmbed()
-            .setColor(config.color)
-            .setDescription(
-              emotes.carpi +
-                `Yanlış kullanım\nDoğru kullanım: **${config.prefix}otorol <ayarla/sıfırla>**`
-            ),
+         await errorEmbed("Yanlış kullanım\nDoğru kullanım **{{prefix}}sayaç <ayarla-sıfırla>**")
         ],
         allowedMentions: { repiledUser: false },
       });

@@ -7,6 +7,7 @@ const {
 } = require("discord.js");
 const { emotes, config } = require("../../../config");
 const db = require("../../../db/otorol");
+const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
 
 module.exports = {
   name: "otorol",
@@ -31,12 +32,9 @@ module.exports = {
       if (channelID || roleID) {
         message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.carpi +
-                  "Databaseye göre bu sunucya ait bir otorol kanalı var"
-              ),
+            await errorEmbed(
+              "Databasede otorol kanalı var\nSıfırlamak için **{{prefix}}otorol sıfırla**"
+            ),
           ],
           allowedMentions: { repiledUser: false },
         });
@@ -45,21 +43,15 @@ module.exports = {
         if (!kanal)
           return message.reply({
             embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(emotes.carpi + "Bir kanal seç"),
+              await errorEmbed(
+                "Yanlış kullanım\nDoğru kullanım **{{prefix}}otorol ayarla <kanal>**"
+              ),
             ],
             allowedMentions: { repiledUser: false },
           });
         if (!kanal.type === "GUILD_TEXT")
           return message.reply({
-            embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(
-                  emotes.carpi + "Seçtiğin kanal bir yazı kanalı olmalı"
-                ),
-            ],
+            embeds: [await errorEmbed()],
             allowedMentions: { repiledUser: false },
           });
         const role = message.mentions.roles.first();
@@ -67,32 +59,20 @@ module.exports = {
           return message.reply({
             allowedMentions: { repliedUser: false },
             embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(emotes.carpi + "Bir rol seç"),
+              await errorEmbed(
+                "Yanlış kullanım\nDoğru kullanım **{{prefix}}otorol ayarla kanal <rol>**"
+              ),
             ],
           });
         if (role.position > message.member.roles.highest.position)
           return message.reply({
             allowedMentions: { repliedUser: false },
-            embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(
-                  emotes.carpi + "Rolün pozisyonu seninkinden üstün"
-                ),
-            ],
+            embeds: [await errorEmbed("Rolün pozisyonu seninkinden üstün")],
           });
         if (role.position > message.guild.me.roles.highest.position)
           return message.reply({
             allowedMentions: { repliedUser: false },
-            embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(
-                  emotes.carpi + "Rolün pozisyonu benimkinden üstün"
-                ),
-            ],
+            embeds: [await errorEmbed("Rolün pozistonu benimkinden üstün")],
           });
         new db({
           guildID: message.guild.id,
@@ -101,12 +81,7 @@ module.exports = {
         }).save();
         message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.tik +
-                  `Otorol ayarlandı:\nKanal:**${kanal}**\nRol:**${role}**`
-              ),
+            await succesEmbed(`Otorol ayarlandı\nKanal:${kanal}\nRol:${rol}`),
           ],
         });
       }
@@ -115,20 +90,16 @@ module.exports = {
       if (!deneme)
         return message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.carpi + "Databasede bu sunucuya ait bir otorol yok!"
-              ),
+            await errorEmbed(
+              "Databasede otorol ayarlı değil\nAyarlamak için **{{prefix}}otorol ayarla**"
+            ),
           ],
         });
       else {
         await db.deleteOne({ guildID: message.guild.id }).then((x) => {
           message.reply({
             embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(emotes.tik + `Otorol sıfırlandı`),
+             await succesEmbed("Başarılya otorol sıfırlandı")
             ],
           });
         });
@@ -136,12 +107,7 @@ module.exports = {
     } else {
       message.reply({
         embeds: [
-          new MessageEmbed()
-            .setColor(config.color)
-            .setDescription(
-              emotes.carpi +
-                `Yanlış kullanım\nDoğru kullanım: **${config.prefix}otorol <ayarla/sıfırla>**`
-            ),
+         await errorEmbed("Yanlış kullanım\nDoğru kullanım **{{prefix}}otorol <ayarla-sıfırla>")
         ],
         allowedMentions: { repiledUser: false },
       });

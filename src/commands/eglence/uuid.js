@@ -1,5 +1,6 @@
 const { MessageEmbed, Message, Client } = require("discord.js");
 const { config, emotes } = require("../../../config");
+const { succesEmbed } = require("../../scripts/embeds");
 const generateUUID = require("../../scripts/generateUUID");
 module.exports = {
   name: "uuid",
@@ -20,9 +21,7 @@ module.exports = {
       .then(() => {
         message.reply({
           embeds: [
-            new MessageEmbed()
-              .setDescription(emotes.tik + "Güvenlik için DM kanalına attım")
-              .setColor(config.color),
+           await succesEmbed("Güvenlik için DM kanalına attım")
           ],
         });
       })

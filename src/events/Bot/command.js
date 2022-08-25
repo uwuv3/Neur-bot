@@ -3,6 +3,7 @@ const client = require("../../index"); //! client(bot) gösterme
 const PermissionsFlags = require("../../../perm_flags"); //! Bot yetki listesi
 const { MessageEmbed } = require("discord.js"); //! Mesaj embed modülü
 const vip = require("../../../db/vip");
+const { errorEmbed } = require("../../scripts/embeds");
 const prefix = config.prefix;
 const command_cooldowns = global.cmd_cooldown;
 
@@ -26,14 +27,13 @@ client.on("messageCreate", async (message) => {
   if (cmd.length == 0) return;
   let command = global.commands.get(cmd);
   if (!command) command = global.commands.get(global.aliases.get(cmd));
+  const nocmd = await errorEmbed(
+    "Böyle bir komudum yok\nTüm komutlarımı öğrenmek için {{prefix}}yardım"
+  );
   if (!command)
     return message
       .reply({
-        embeds: [
-          new MessageEmbed()
-            .setColor("RED")
-            .setDescription(emotes.carpi + "Böyle bir komudum yok"),
-        ],
+        embeds: [nocmd],
         allowedMentions: { repliedUser: false },
       })
       .then((x) => {
@@ -45,26 +45,30 @@ client.on("messageCreate", async (message) => {
   //Only
   if (command.adminOnly) {
     if (!config.admins.includes(message.author.id))
-      return message.reply({
-        embeds: [
-          new MessageEmbed()
-            .setColor("RED")
-            .setDescription(emotes.carpi + "Bu komut botun adminlerine özel"),
-        ],
-        allowedMentions: { repliedUser: false },
-      });
+      return message
+        .reply({
+          embeds: [await errorEmbed("Bu komut botun en üst yetkilerine özel")],
+          allowedMentions: { repliedUser: false },
+        })
+        .then((x) => {
+          setTimeout(() => {
+            x.delete();
+          }, 5000);
+        });
   }
   if (command.vipOnly) {
     const viptest = await vip.findOne({ userID: message.author.id });
     if (!viptest)
-      return message.reply({
-        embeds: [
-          new MessageEmbed()
-            .setColor("RED")
-            .setDescription(emotes.carpi + "Bu komut botun viplerine özel"),
-        ],
-        allowedMentions: { repliedUser: false },
-      });
+      return message
+        .reply({
+          embeds: [await errorEmbed("Bu komut VIP'lere özel")],
+          allowedMentions: { repliedUser: false },
+        })
+        .then((x) => {
+          setTimeout(() => {
+            x.delete();
+          }, 5000);
+        });
   }
   //perm
   if (command.permission && command.permission.length) {

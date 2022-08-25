@@ -7,6 +7,7 @@ const {
 } = require("discord.js");
 const { emotes, config } = require("../../../config");
 const db = require("../../../db/boostlog");
+const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
 
 module.exports = {
   name: "boost-log",
@@ -42,12 +43,9 @@ module.exports = {
       if (channelID) {
         message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.carpi +
-                  "Databaseye göre bu sunucya ait bir boostlog kanalı var"
-              ),
+            await errorEmbed(
+              "Zaten databasede bir boostlog kanalı var \nSıfırlamak için **{{prefix}}boost-log sıfırla**"
+            ),
           ],
           components: [button],
           allowedMentions: { repiledUser: false },
@@ -57,21 +55,15 @@ module.exports = {
         if (!kanal)
           return message.reply({
             embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(emotes.carpi + "Bir kanal seç"),
+              await errorEmbed(
+                "Ynalış kullanım\nDoğru kullanım **{{prefix}}boost-log ayarla <kanal>**"
+              ),
             ],
             allowedMentions: { repiledUser: false },
           });
         if (!kanal.type === "GUILD_TEXT")
           return message.reply({
-            embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(
-                  emotes.carpi + "Seçtiğin kanal bir yazı kanalı olmalı"
-                ),
-            ],
+            embeds: [await errorEmbed()],
             allowedMentions: { repiledUser: false },
           });
 
@@ -81,11 +73,9 @@ module.exports = {
         }).save();
         message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.tik + `Boost log kanalı başarıyla ${kanal} ayarlandı!`
-              ),
+            await succesEmbed(
+              `Başarıyla boost-log kanalı ayarlandı\nKanal:${kanal}`
+            ),
           ],
         });
       }
@@ -94,22 +84,16 @@ module.exports = {
       if (!deneme)
         return message.reply({
           embeds: [
-            new MessageEmbed()
-              .setColor(config.color)
-              .setDescription(
-                emotes.carpi + "Databasede bu sunucuya ait bir boostlog yok!"
-              ),
+            await errorEmbed(
+              "Databasede boost-log kanalı bulamadım \nAyarlamak için **{{prefix}}boost-log ayarla**"
+            ),
           ],
         });
       else {
         await db.deleteOne({ guildID: message.guild.id }).then((x) => {
           message.reply({
             embeds: [
-              new MessageEmbed()
-                .setColor(config.color)
-                .setDescription(
-                  emotes.tik + `Boost log kanalı başarıyla null ayarlandı!`
-                ),
+            await succesEmbed("Başarıyla boost-log kanalı ayarlandı\nKanal:null")
             ],
           });
         });
@@ -134,12 +118,7 @@ module.exports = {
       );
       message.reply({
         embeds: [
-          new MessageEmbed()
-            .setColor(config.color)
-            .setDescription(
-              emotes.carpi +
-                `Yanlış kullanım\nDoğru kullanım: **${config.prefix}boost-log <ayarla/sıfırla>**`
-            ),
+          await errorEmbed("Yanlış kullanım\nDoğru kullanım **{{prefix}}boost-log <ayarla-sıfırla>**")
         ],
         components: [button],
         allowedMentions: { repiledUser: false },

@@ -21,6 +21,7 @@ async function uptime(b) {
         url: config.uptime.webhookURL,
       });
       wbclient.send({
+        content: `<@${b.userID}>`,
         embeds: [
           await succesEmbed(
             `<@${client.user.id}> tarafından **${b.UUID}** uuidli websitesi silindi!`

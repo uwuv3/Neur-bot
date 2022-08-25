@@ -38,7 +38,7 @@ async function uptime(b) {
   }, 10000);
 
   try {
-    const res = await fetch(b.URL, { signal }).catch(async (x) => {
+    const res = await fetch(b.URL, { signal }).then(()=>nukleondb.remove(`${b.URL}`)).catch(async (x) => {
       const wbclient = new WebhookClient({
         url: config.uptime.webhookURL,
       });
@@ -70,6 +70,7 @@ client.on("guildMemberRemove", async (member) => {
     const link = await db.find({ userID: member.id });
     link.map(async (x) => {
       await db.deleteOne({ userID: x.userID, URL: x.URL }).then(() => {
+        nukleondb.remove(`${x.URL}`);
         client.users.cache.get(x.userID).send({
           embeds: [
             new MessageEmbed()

@@ -1,0 +1,19 @@
+.button.is-loading::after,
+.control.is-loading::after,
+.loader,
+.select.is-loading::after {
+  -webkit-animation: spinAround 0.5s infinite linear;
+  animation: spinAround 0.5s infinite linear;
+  border: 2px solid transparent;
+  border-radius: 290486px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  display: block;
+  height: 1em;
+  position: relative;
+  width: 1em;
+}
+.ads {
+  width: 1px;
+}

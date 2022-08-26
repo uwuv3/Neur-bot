@@ -1,14 +1,17 @@
 const express = require("express"); //! Express modülü
+const { config } = require("../../config"); //! Ayarlar modülü
 const app = express(); //! Express to web
 const PORT = process.env.PORT || "8080"; //! Web port
+app.use(express.static("assets"));
 module.exports = (client) => {
   client.on("ready", async () => {
     app.get("/", function (req, res) {
       res.render("./index.ejs", {
-        avatarURL: client.user.avatarURL(),
-        name: client.user.username,
+        botavatarURL: client.user.avatarURL(),
+        botname: client.user.username,
+        color: config.color,
+        description: config.desc,
         ping: client.ws.ping,
-        users: client.users.cache.size,
       });
     });
     appCreate();

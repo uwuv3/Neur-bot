@@ -1,12 +1,11 @@
 const config = {
   uptime: {
     guildID: "977635754392039435",
-    roleID: "1010555155395117056",
     guildInvite: "https://discord.gg/mdM8DFm2Qv",
     webhookURL:
       "https://discord.com/api/webhooks/1010946009909710868/90kjGEeGpMe67FHeOcHJFkDKPLB8bCFrIm4dPECIQ2RLZEvtT8F4i19K6_bfceAJU7-P",
   },
-  topggtoken: "",
+  desc: "A bot",
   mongodburl:
     "mongodb+srv://uwuv3:rkzgkHg8FMcL2mal@cluster0.hktzrvl.mongodb.net/?retryWrites=true&w=majority", //! Mongodb bağlanması için URL
   //TODO: Boş bırakma bot çalışmaz
@@ -14,8 +13,8 @@ const config = {
   //TODO: !,?,> koyabilirsin
   dmmsgchnl: "1010966336148623401", //! Dmden mesaj gelince mesajı kanala gönderme
   //TODO : Kanal id yerleştir
-  color: "DARK_RED", //! Embed rengi
-  //TODO: Renk kodu da koyabilirsin
+  color: "#8db1f1", //! Embed ve website rengi
+  //TODO: Renk kodu olmak zorunda
   admins: [
     "984439714851479593", //* N๏ ภค๓є#8841
     "830008975335489567", //* aѕѕaυlт_reaм#2922

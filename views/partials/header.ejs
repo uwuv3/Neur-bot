@@ -1,44 +1,75 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta property="og:site_name" content="Description Technique"/>
-<meta property="og:image" content="<%- avatarURL %>"/>
-<meta name="theme-color" content="#07233B"/>
-<title><%- ping %>ms</title>
-<link rel="icon" href="<%- avatarURL %>" type="image/x-icon" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-
-<nav style="margin-left:10%;margin-right:10%;"class="navbar navbar-expand-md navbar-dark bg-transparent fixed-top" id="mainNav">
-   
- 
-    <a class="deneme navbar-brand" style="margin-left: 10px;padding:10px" href="/"><img src="<%- avatarURL %>" style="border-radius: 100%" width="30" height="30">
-    <%- name %>
+<meta property="og:site_name" content="<%- botname %> - <%- description %>" />
+<meta property="og:image" content="<%- botavatarURL %>" />
+<meta name="theme-color" content="<%- color %>" />
+<title><%- botname %></title>
+<link rel="icon" href="<%- botavatarURL %>" type="image/x-icon" />
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+  crossorigin="anonymous"
+/>
+<link
+  href="https://fonts.googleapis.com/css?family=Quicksand"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"
+/>
+<script src="https://wmcmurray.github.io/just-detect-adblock/bundle.umd.js"></script>
+<link rel="stylesheet" href="style.css" />
+<script src="detectadblock.js"></script>
+<div id="notify">
+  <div class="ads"></div>
+</div>
+<nav
+  style="margin-left: 10%; margin-right: 10%"
+  class="navbar navbar-expand-md navbar-dark bg-transparent fixed-top"
+  id="mainNav"
+>
+  <a class="navbar-brand" style="margin-left: 10px; padding: 10px" href="/"
+    ><img
+      src="<%- botavatarURL %>"
+      style="border-radius: 100%"
+      width="30"
+      height="30"
+    />
+    <%- botname %>
   </a>
 
-
-    <ul class="navbar-nav" style="margin-right: 50%;">
-      <li class="deneme nav-item">
-      <a class="nav-link" href="https://open.spotify.com/user/jirvuq7pbpaxly29r0y7qffwr"
-      target="_blank"><i class="fab fa-spotify"></i></a>
+  <ul class="navbar-nav" style="margin-right: 50%">
+    <li class="nav-item">
+      <a class="nav-link" href="" target="_blank"
+        ><i class="fab fa-spotify"></i
+      ></a>
     </li>
-    <li class="deneme nav-item">
-        <a class="nav-link" href="https://github.com/uwuv3"
-        target="_blank"><i class="fab fa-github"></i></a>
+    <li class="nav-item">
+      <a class="nav-link" href="https://github.com/uwuv3" target="_blank"
+        ><i class="fab fa-github"></i
+      ></a>
     </li>
 
-      <li class="deneme nav-item">
-        <a class="nav-link" href="https://discord.com/users/984439714851479593"
-        target="_blank"><i class="fab fa-discord"></i></a>
-      </li>
-     
-      <li class="deneme nav-item">
-        <a class="nav-link" href="https://www.reddit.com/user/uwu_v3"
-        target="_blank"><i class="fab fa-reddit"></i></a>
-      </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        href="https://discord.com/users/984439714851479593"
+        target="_blank"
+        ><i class="fab fa-discord"></i
+      ></a>
+    </li>
 
-   
-    </ul>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        href="https://www.reddit.com/user/uwu_v3"
+        target="_blank"
+        ><i class="fab fa-reddit"></i
+      ></a>
+    </li>
+  </ul>
 </nav>
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>

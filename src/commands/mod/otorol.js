@@ -12,6 +12,7 @@ const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
 module.exports = {
   name: "otorol",
   aliases: [""],
+  usage: "ayarla <kanal> <rol> - sıfırla",
   permission: ["ADMINISTRATOR"],
   cooldown: 5000,
   adminOnly: false,

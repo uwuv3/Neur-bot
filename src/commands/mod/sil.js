@@ -4,6 +4,7 @@ const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
 module.exports = {
   name: "sil",
   aliases: [],
+  usage: "<sayı>",
   permission: ["MANAGE_MESSAGES"],
   cooldown: 1000,
   adminOnly: false,

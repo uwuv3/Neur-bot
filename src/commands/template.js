@@ -2,6 +2,7 @@ const { MessageEmbed, Message, Client } = require("discord.js");
 module.exports = {
   name: "",
   aliases: [],
+  usage: "undefined",
   permission: ["SEND_MESSAGES"],
   cooldown: 1000,
   adminOnly: false,

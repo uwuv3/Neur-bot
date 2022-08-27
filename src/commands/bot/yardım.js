@@ -30,14 +30,14 @@ module.exports = {
         for (let file of command) {
           let pull = require(`../${dir}/${file}`);
           if (pull.name) {
-            cmds.push(pull.name);
+            cmds.push(`${pull.name} -> ${pull.usage}`);
           } else {
             continue;
           }
         }
         cats = {
           name: name,
-          value: `\`${cmds.join("\n")}\``,
+          value: `\`${cmds ? cmds.join("\n") : "komut bulamadım"}\``,
           inline: true,
         };
 

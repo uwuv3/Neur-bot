@@ -12,6 +12,7 @@ const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
 module.exports = {
   name: "sayaç",
   aliases: ["sayac"],
+  usage: "ayarla <kanal> <sayı> - sıfırla",
   permission: ["ADMINISTRATOR"],
   cooldown: 5000,
   adminOnly: false,

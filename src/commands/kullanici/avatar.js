@@ -1,8 +1,15 @@
-const { MessageButton, MessageEmbed, MessageActionRow , Message, Client } = require("discord.js");
+const {
+  MessageButton,
+  MessageEmbed,
+  MessageActionRow,
+  Message,
+  Client,
+} = require("discord.js");
 const { config } = require("../../../config");
 module.exports = {
   name: "avatar",
   aliases: [""],
+  usage: "<@user>",
   permission: ["SEND_MESSAGES"],
   cooldown: 5000,
   adminOnly: false,
@@ -57,7 +64,7 @@ module.exports = {
         `[**\`PNG\`**](${png}) | [**\`JPG\`**](${jpg}) | [**\`JPEG\`**](${png}) | [**\`WEBP\`**](${webp}) | [**\`GIF\`**](${gif}) `
       )
       .setImage(user.displayAvatarURL())
-      .setColor(config.color)
+      .setColor(config.color);
     message.reply({
       embeds: [embed],
       components: [row],

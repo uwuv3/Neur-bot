@@ -10,6 +10,7 @@ const { errorEmbed } = require("../../scripts/embeds");
 module.exports = {
   name: "başarım",
   aliases: ["basarim", "mc-başarım", "mc-basarım", "mc-başarım"],
+  usage: "<title|content>",
   cooldown: 5000,
   adminOnly: false,
   /**

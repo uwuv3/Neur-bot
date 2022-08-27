@@ -14,6 +14,7 @@ const generateUUID = require("../../scripts/generateUUID");
 module.exports = {
   name: "uptime",
   aliases: [],
+  usage: "ekle <link> - sil <uuid> - liste",
   permission: ["SEND_MESSAGES"],
   cooldown: 1000,
   adminOnly: false,
@@ -158,7 +159,7 @@ module.exports = {
                       `**${uuid}** uuidli websiten başarıyla eklendi!`
                     ).then((embed) =>
                       embed.setFooter({
-                        text: "UUID'ler silme işleminde geçersizdir",
+                        text: "Link'ler silme işleminde geçersizdir",
                       })
                     ),
                   ],
@@ -174,8 +175,8 @@ module.exports = {
       }
     } else if (değer === "sil") {
       message.delete();
-      const link = args[1];
-      if (!link)
+      const uuid = args[1];
+      if (!uuid)
         return message.channel.send({
           content: `${message.author}`,
           embeds: [
@@ -184,14 +185,51 @@ module.exports = {
             ),
           ],
         });
-      try {
-        fetch(link).then(async (x) => {
+      if (config.admins.includes(message.author.id)) {
+        try {
           const tarama = await db.findOne({
-            userID: message.author.id,
-            URL: x.url,
+            UUID: uuid,
           });
           if (tarama) {
-            await db.deleteOne({ userID: message.author.id, URL: x.url });
+            await db.deleteOne({ UUID: uuid });
+            const wbclient = new WebhookClient({
+              url: config.uptime.webhookURL,
+            });
+            wbclient.send({
+              embeds: [
+                await succesEmbed(
+                  `<@${tarama.userID}> tarafından **${tarama.UUID}** uuidli websitesi silindi!`
+                ),
+              ],
+            });
+            message.channel.send({
+              content: `${message.author}`,
+              embeds: [
+                await succesEmbed(
+                  `**${tarama.UUID}** uuidli websitsi silindi!`
+                ),
+              ],
+            });
+          } else {
+            message.channel.send({
+              content: `${message.author}`,
+              embeds: [await errorEmbed("Böyle bir link bulamadım")],
+            });
+          }
+        } catch {
+          message.channel.send({
+            content: `${message.author}`,
+            embeds: [await errorEmbed()],
+          });
+        }
+      } else {
+        try {
+          const tarama = await db.findOne({
+            userID: message.author.id,
+            UUID: uuid,
+          });
+          if (tarama) {
+            await db.deleteOne({ userID: message.author.id, UUID: uuid });
             const wbclient = new WebhookClient({
               url: config.uptime.webhookURL,
             });
@@ -216,12 +254,12 @@ module.exports = {
               embeds: [await errorEmbed("Böyle bir link bulamadım")],
             });
           }
-        });
-      } catch {
-        message.channel.send({
-          content: `${message.author}`,
-          embeds: [await errorEmbed()],
-        });
+        } catch {
+          message.channel.send({
+            content: `${message.author}`,
+            embeds: [await errorEmbed()],
+          });
+        }
       }
     } else if (değer === "liste") {
       const değer = args[1];

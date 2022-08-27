@@ -4,6 +4,7 @@ const { succesEmbed } = require("../../scripts/embeds");
 module.exports = {
   name: "nuke",
   aliases: [""],
+  usage: "<undefined>",
   permission: ["MANAGE_CHANNELS"],
   cooldown: 5000,
   adminOnly: false,

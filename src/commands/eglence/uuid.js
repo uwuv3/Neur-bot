@@ -6,6 +6,7 @@ module.exports = {
   name: "uuid",
   aliases: [],
   permission: ["SEND_MESSAGES"],
+  usage: "<undefined>",
   cooldown: 1000,
   adminOnly: false,
   /**
@@ -18,11 +19,9 @@ module.exports = {
     const uuid = await generateUUID();
     message.member
       .send({ content: `\`\`\`\n${uuid}\n\`\`\`` })
-      .then(async() => {
+      .then(async () => {
         message.reply({
-          embeds: [
-           await succesEmbed("Güvenlik için DM kanalına attım")
-          ],
+          embeds: [await succesEmbed("Güvenlik için DM kanalına attım")],
         });
       })
       .catch(() => {

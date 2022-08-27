@@ -12,6 +12,7 @@ const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
 module.exports = {
   name: "boost-log",
   aliases: [""],
+  usage: "ayarla <kanal> - sıfırla",
   permission: ["ADMINISTRATOR"],
   cooldown: 5000,
   adminOnly: false,

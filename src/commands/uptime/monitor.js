@@ -196,9 +196,10 @@ module.exports = {
               url: config.uptime.webhookURL,
             });
             wbclient.send({
+              content: `<@${tarama.userID}>`,
               embeds: [
                 await succesEmbed(
-                  `<@${tarama.userID}> tarafından **${tarama.UUID}** uuidli websitesi silindi!`
+                  `<@${message.author.id}> tarafından **${tarama.UUID}** uuidli websitesi silindi!`
                 ),
               ],
             });

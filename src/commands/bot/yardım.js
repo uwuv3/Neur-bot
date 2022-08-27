@@ -37,7 +37,7 @@ module.exports = {
         }
         cats = {
           name: name,
-          value: `\`${cmds ? cmds.join("\n") : "komut bulamadım"}\``,
+          value: `\`${cmds ? cmds.join("\n\n") : "komut bulamadım"}\``,
           inline: true,
         };
 

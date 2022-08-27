@@ -2,7 +2,7 @@ const express = require("express"); //! Express modülü
 const { config } = require("../../config"); //! Ayarlar modülü
 const app = express(); //! Express to web
 const PORT = process.env.PORT || "8080"; //! Web port
-app.use(express.static("assets"));
+app.use(express.static(`${process.cwd()}/assets`));
 module.exports = (client) => {
   client.on("ready", async () => {
     app.get("/", function (req, res) {

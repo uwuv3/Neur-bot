@@ -45,6 +45,7 @@ async function uptime(b) {
         }
       })
       .catch(async (x) => {
+        if (config.admins.includes(b.userID)) return;
         const wbclient = new WebhookClient({
           url: config.uptime.webhookURL,
         });
@@ -58,6 +59,7 @@ async function uptime(b) {
         });
       });
   } catch (x) {
+    if (config.admins.includes(b.userID)) return;
     const wbclient = new WebhookClient({
       url: config.uptime.webhookURL,
     });

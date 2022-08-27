@@ -21,7 +21,7 @@ client.on("messageCreate", async (message) => {
       ],
     });
   if (!message.content.startsWith(prefix)) return;
-  const args = message.content.slice(prefix.length).split(/ +/);
+  const args = message.content.slice(prefix.length).split(/ +/g);
 
   const cmd = args.shift().toLowerCase();
   if (cmd.length == 0) return;

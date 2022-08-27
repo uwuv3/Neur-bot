@@ -81,7 +81,7 @@ module.exports = {
         }).save();
         message.reply({
           embeds: [
-            await succesEmbed(`Otorol ayarlandı\nKanal:${kanal}\nRol:${rol}`),
+            await succesEmbed(`Otorol ayarlandı\nKanal:${kanal}\nRol:${role}`),
           ],
         });
       }
@@ -106,7 +106,7 @@ module.exports = {
       message.reply({
         embeds: [
           await errorEmbed(
-            "Yanlış kullanım\nDoğru kullanım **{{prefix}}otorol <ayarla-sıfırla>"
+            "Yanlış kullanım\nDoğru kullanım **{{prefix}}otorol <ayarla-sıfırla>**"
           ),
         ],
         allowedMentions: { repiledUser: false },

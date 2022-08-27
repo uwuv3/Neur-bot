@@ -1,9 +1,9 @@
 const config = {
   uptime: {
-    guildID: "977635754392039435",
-    guildInvite: "https://discord.gg/mdM8DFm2Qv",
+    guildID: "1012997072548540436",
+    guildInvite: "https://discord.gg/hnBk44WPdP",
     webhookURL:
-      "https://discord.com/api/webhooks/1010946009909710868/90kjGEeGpMe67FHeOcHJFkDKPLB8bCFrIm4dPECIQ2RLZEvtT8F4i19K6_bfceAJU7-P",
+      "https://discord.com/api/webhooks/1013011796984074310/nPHR4qtHTKXnzEIQ8pUaXog68CrwUdv976cQQmBoSeZYwJ-jid7iOYaLyDc8o4hLH7XP",
   },
   desc: "A bot",
   mongodburl:
@@ -11,7 +11,7 @@ const config = {
   //TODO: Boş bırakma bot çalışmaz
   prefix: "?", //! Botun prefixi
   //TODO: !,?,> koyabilirsin
-  dmmsgchnl: "1010966336148623401", //! Dmden mesaj gelince mesajı kanala gönderme
+  dmmsgchnl: "1013010061276233788", //! Dmden mesaj gelince mesajı kanala gönderme
   //TODO : Kanal id yerleştir
   color: "#8db1f1", //! Embed ve website rengi
   //TODO: Renk kodu olmak zorunda
@@ -40,7 +40,7 @@ const config = {
   presence: {
     status: "", //!Kullanıcı durumu
     //TODO: online,idle,dnd,offline
-    activities: [`@NEUR - ?yardım`, "@NEUR - v0.0.7.52_BETA"], //! Botun oynuyor kısmı
+    activities: [`@NEUR - ?yardım`, "@NEUR - v0.0.7.83_BETA"], //! Botun oynuyor kısmı
     //TODO: Boş bırakma hata verir
     type: "Playing", //! Oynuyor kısmının type'ı
     //TODO: Playing,Streaming,Listening,Watching,Custom,Competing

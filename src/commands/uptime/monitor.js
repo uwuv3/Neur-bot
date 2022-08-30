@@ -267,10 +267,8 @@ module.exports = {
         if (config.admins.includes(message.author.id)) {
           const link = await db.find();
           const map = link
-            .map(
-              (x) => `${x.URL} -> <@${x.userID}>\`${x.userID}\` -> ${x.UUID}`
-            )
-            .join("\n");
+            .map((x) => `${x.URL} -> <@${x.userID}> -> ${x.UUID}`)
+            .join("\n\n");
           message.member
             .send({
               embeds: [await succesEmbed(map ? map : "Link bulunamadı")],

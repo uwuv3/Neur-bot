@@ -32,7 +32,7 @@ module.exports = {
         allowedMentions: { repliedUser: false },
         embeds: [
           await errorEmbed(
-            `Bu komudu kullanabilmek için **\`[DISCORD](${config.uptime.guildID})\`** sunucumuza katılmanız lazım`
+            `Bu komudu kullanabilmek için **\`[DISCORD](${config.uptime.guildURL})\`** sunucumuza katılmanız lazım`
           ),
         ],
       });
@@ -100,7 +100,7 @@ module.exports = {
                         `**${uuid}** uuidli websiten başarıyla eklendi!`
                       ).then((embed) =>
                         embed.setFooter({
-                          text: "UUID'ler silme işleminde geçersizdir",
+                          text: "Link'ler silme işleminde geçersizdir",
                         })
                       ),
                     ],
@@ -174,14 +174,13 @@ module.exports = {
         }
       }
     } else if (değer === "sil") {
-      message.delete();
       const uuid = args[1];
       if (!uuid)
         return message.channel.send({
           content: `${message.author}`,
           embeds: [
             await errorEmbed(
-              "Yanlış kullanım\nDoğru kullanım **{{prefix}}uptime sil <link>**"
+              "Yanlış kullanım\nDoğru kullanım **{{prefix}}uptime sil <uuid>**"
             ),
           ],
         });

@@ -1,4 +1,5 @@
 const config = {
+  voicechannelID: "1014090354728915034", //! Sesli kanala girecek kanalın ID
   uptime: {
     guildID: "1012997072548540436",
     guildInvite: "https://discord.gg/hnBk44WPdP",

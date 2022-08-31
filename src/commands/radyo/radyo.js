@@ -34,8 +34,9 @@ module.exports = {
         allowedMentions: { repliedUser: false },
         embeds: [await errorEmbed(`Şunlardan birini seç \n**${keys}**`)],
       });
+
     if (!yayınlar[val])
-      //value
+      //Value
       return message.reply({
         allowedMentions: { repliedUser: false },
         embeds: [await errorEmbed(`Şunlardan birini seç \n**${keys}**`)],

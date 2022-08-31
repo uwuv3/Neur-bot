@@ -6,7 +6,7 @@ module.exports = {
   name: "radyosıfırla",
   aliases: [],
   usage: "undefined",
-  permission: ["SEND_MESSAGES"],
+  permission: ["CHANGE_NICKNAME"],
   cooldown: 1000,
   adminOnly: false,
   /**
@@ -21,6 +21,11 @@ module.exports = {
       return message.reply({
         allowedMentions: { repliedUser: false },
         embeds: [await errorEmbed("Bir sesli kanala gir")],
+      });
+    if (!sesli.id == message.guild.me.voice.id)
+      return message.reply({
+        allowedMentions: { repliedUser: false },
+        embeds: [await errorEmbed("Girdiğin sesli kanald ben yokum")],
       });
     await db.remove(`radyochannel_${message.guild.id}`);
     await db.remove(`radyo_${message.guild.id}`);

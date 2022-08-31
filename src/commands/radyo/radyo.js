@@ -8,7 +8,7 @@ module.exports = {
   name: "radyo",
   aliases: [],
   usage: "undefined",
-  permission: ["MANAGE_MESSAGES"],
+  permission: ["CHANGE_NICKNAME"],
   cooldown: 1000,
   adminOnly: false,
   /**
@@ -18,15 +18,13 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (message, client, args) => {
-    const test = await db.has(`radyochannel_${message.guild.id}`);
-    const keys = Object.keys(yayınlar);
-    if (!test)
+    if (!message.channel.type === "GUILD_VOICE")
       return message.reply({
         allowedMentions: { repliedUser: false },
-        embeds: [
-          await errorEmbed("Beni buga mı sokmaya çalışıyon önce bir kanal seç"),
-        ],
+        embeds: [await errorEmbed("Bu komudu sesli sohbette kullanabilirsin")],
       });
+
+    const keys = Object.keys(yayınlar);
 
     const val = args[0];
     if (!val)
@@ -41,9 +39,15 @@ module.exports = {
         allowedMentions: { repliedUser: false },
         embeds: [await errorEmbed(`Şunlardan birini seç \n**${keys}**`)],
       });
+    const sesli = message.member.voice.channel;
+    if (!sesli)
+      return message.reply({
+        embeds: [await errorEmbed("Bir sesli kanala gir")],
+      });
     db.set(`radyo_${message.guild.id}`, yayınlar[val]);
+    await db.set(`radyochannel_${message.guild.id}`, sesli.id);
     message.reply({
-      embeds: [await succesEmbed(`**${val}** isimli Radyo Dinleniyor!`)],
+      embeds: [await succesEmbed(`**${val}** isimli radyo dinleniyor!`)],
     });
     radyo(client, message.guild.id);
   },

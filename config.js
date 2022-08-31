@@ -41,7 +41,7 @@ const config = {
   presence: {
     status: "", //!Kullanıcı durumu
     //TODO: online,idle,dnd,offline
-    activities: [`@NEUR - ?yardım`, "@NEUR - v0.0.7.83_BETA"], //! Botun oynuyor kısmı
+    activities: [`@NEUR - ?yardım`, "@NEUR - v0.0.8_ALPHA"], //! Botun oynuyor kısmı
     //TODO: Boş bırakma hata verir
     type: "Playing", //! Oynuyor kısmının type'ı
     //TODO: Playing,Streaming,Listening,Watching,Custom,Competing

@@ -2,6 +2,7 @@ const client = require("../../index");
 const { config } = require("../../../config");
 const { joinVoiceChannel } = require("@discordjs/voice");
 client.on("ready", async () => {
+  /*
   const channel = await client.channels.cache.get(config.voicechannelID);
   voice();
   function voice() {
@@ -15,5 +16,6 @@ client.on("ready", async () => {
 
     if (con.disconnect) return setTimeout(() => voice(), 5000);
     if (con.destroy) con.rejoin();
-  }
+  } closed
+  */
 });

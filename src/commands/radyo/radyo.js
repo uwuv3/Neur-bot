@@ -44,17 +44,8 @@ module.exports = {
       bestfm: "Best FM",
       alemfm: "Alem FM",
       trtfm: "TRT FM",
-      radyolar: [
-        "kralpop",
-        "kralpm",
-        "powerpm",
-        "fenomen",
-        "bestfm",
-        "alemfm",
-        "trtfm",
-      ],
     };
-    if (!fm.radyolar.includes(val))
+    if (!yayınlar[val])
       return message.reply({
         allowedMentions: { repliedUser: false },
         embeds: [

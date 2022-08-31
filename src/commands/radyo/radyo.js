@@ -7,7 +7,7 @@ const radyo = require("../../scripts/radyo/yayın");
 module.exports = {
   name: "radyo",
   aliases: [],
-  usage: "undefined",
+  usage: "<ad>",
   permission: ["CHANGE_NICKNAME"],
   cooldown: 1000,
   adminOnly: false,
@@ -18,14 +18,17 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (message, client, args) => {
-    if (!message.channel.type === "GUILD_VOICE")
+    if (message.channel.type !== "GUILD_VOICE")
       return message.reply({
         allowedMentions: { repliedUser: false },
         embeds: [await errorEmbed("Bu komudu sesli sohbette kullanabilirsin")],
       });
-
+    const sesli = message.member.voice.channel;
+    if (!sesli)
+      return message.reply({
+        embeds: [await errorEmbed("Bir sesli kanala gir")],
+      });
     const keys = Object.keys(yayınlar);
-
     const val = args[0];
     if (!val)
       return message.reply({
@@ -39,11 +42,7 @@ module.exports = {
         allowedMentions: { repliedUser: false },
         embeds: [await errorEmbed(`Şunlardan birini seç \n**${keys}**`)],
       });
-    const sesli = message.member.voice.channel;
-    if (!sesli)
-      return message.reply({
-        embeds: [await errorEmbed("Bir sesli kanala gir")],
-      });
+
     db.set(`radyo_${message.guild.id}`, yayınlar[val]);
     await db.set(`radyochannel_${message.guild.id}`, sesli.id);
     message.reply({

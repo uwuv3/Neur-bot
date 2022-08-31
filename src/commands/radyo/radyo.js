@@ -19,6 +19,7 @@ module.exports = {
    */
   run: async (message, client, args) => {
     const test = await db.has(`radyochannel_${message.guild.id}`);
+    const keys = Object.keys(yayınlar);
     if (!test)
       return message.reply({
         allowedMentions: { repliedUser: false },
@@ -26,46 +27,22 @@ module.exports = {
           await errorEmbed("Beni buga mı sokmaya çalışıyon önce bir kanal seç"),
         ],
       });
+
     const val = args[0];
     if (!val)
       return message.reply({
         allowedMentions: { repliedUser: false },
-        embeds: [
-          await errorEmbed(
-            "Şunlardan birini seç \n**kralpop,kralfm,powerfm,fenomen,bestfm,alemfm,trtfm**"
-          ),
-        ],
+        embeds: [await errorEmbed(`Şunlardan birini seç \n**${keys}**`)],
       });
-    const fm = {
-      kralpop: "Kral Pop",
-      kralpm: "Kral FM",
-      powerpm: "Power FM",
-      fenomen: "Fenomen",
-      bestfm: "Best FM",
-      alemfm: "Alem FM",
-      trtfm: "TRT FM",
-      radyolar: [
-        "kralpop",
-        "kralpm",
-        "powerpm",
-        "fenomen",
-        "bestfm",
-        "alemfm",
-        "trtfm",
-      ],
-    };
-    if (!fm.radyolar.includes(val))
+    if (!yayınlar[val])
+      //value
       return message.reply({
         allowedMentions: { repliedUser: false },
-        embeds: [
-          await errorEmbed(
-            "Şunlardan birini seç \n**kralpop,kralfm,powerfm,fenomen,bestfm,alemfm,trtfm**"
-          ),
-        ],
+        embeds: [await errorEmbed(`Şunlardan birini seç \n**${keys}**`)],
       });
     db.set(`radyo_${message.guild.id}`, yayınlar[val]);
     message.reply({
-      embeds: [await succesEmbed(`**${fm[val]}** isimli Radyo Dinleniyor!`)],
+      embeds: [await succesEmbed(`**${val}** isimli Radyo Dinleniyor!`)],
     });
     radyo(client, message.guild.id);
   },

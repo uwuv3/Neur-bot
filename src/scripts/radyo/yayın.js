@@ -4,16 +4,17 @@ const {
   createAudioPlayer,
   StreamType,
 } = require("@discordjs/voice");
-const { Database } = require("nukleon");
-const db = new Database("/db/radyo.json");
-async function RadioRepeater(client, element) {
-  let radyo = await db.get(`radyo_${element}`);
-  let kanal = await db.get(`radyochannel_${element}`);
-  let Channel = client.channels.cache.get(kanal);
-  if (!radyo || !kanal || !Channel) return;
+require("../../../db/radyo");
+async function RadioRepeater(client, value) {
+  const { channelID, radyoURL } = (await db.findOne({ guildID: value })) || {
+    channelID: null,
+    radyoURL: null,
+  };
+  if (!channelID || !radyoURL || !value) return;
+  let Channel = client.channels.cache.get(channelID);
 
   try {
-    var streamURL = radyo;
+    var streamURL = radyoURL;
     const player = createAudioPlayer();
     const resource = createAudioResource(streamURL, {
       inputType: StreamType.Arbitrary,

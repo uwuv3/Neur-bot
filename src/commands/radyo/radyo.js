@@ -1,13 +1,12 @@
 const { MessageEmbed, Message, Client, DMChannel } = require("discord.js");
-const { Database } = require("nukleon");
 const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
-const db = new Database("/db/radyo.json");
 const yayınlar = require("../../scripts/radyo/radyolar.json");
 const radyo = require("../../scripts/radyo/yayın");
+const db = require("../../../db/radyo");
 module.exports = {
-  name: "radyo",
+  name: "radyo-ayarla",
   aliases: [],
-  usage: "<ad>",
+  usage: "<radyo>",
   permission: ["CHANGE_NICKNAME"],
   cooldown: 1000,
   adminOnly: false,
@@ -43,11 +42,15 @@ module.exports = {
         embeds: [await errorEmbed(`Şunlardan birini seç \n**${keys}**`)],
       });
 
-    db.set(`radyo_${message.guild.id}`, yayınlar[val]);
-    await db.set(`radyochannel_${message.guild.id}`, sesli.id);
+   await new db({
+      guildID: message.guild.id,
+      channelID: message.channel.id,
+      radyoURL: yayınlar[val],
+    }).save().then(()=>{
     message.reply({
       embeds: [await succesEmbed(`**${val}** isimli radyo dinleniyor!`)],
     });
-    radyo(client, message.guild.id);
+    radyo(client,message.guild.id);
+  })
   },
 };

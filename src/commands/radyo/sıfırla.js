@@ -1,9 +1,8 @@
 const { MessageEmbed, Message, Client } = require("discord.js");
-const { Database } = require("nukleon");
 const { errorEmbed, succesEmbed } = require("../../scripts/embeds");
-const db = new Database("/db/radyo.json");
+const db = require("../../../db/radyo");
 module.exports = {
-  name: "radyosıfırla",
+  name: "radyo-sıfırla",
   aliases: [],
   usage: "undefined",
   permission: ["CHANGE_NICKNAME"],
@@ -27,9 +26,16 @@ module.exports = {
         allowedMentions: { repliedUser: false },
         embeds: [await errorEmbed("Girdiğin sesli kanald ben yokum")],
       });
-    await db.remove(`radyochannel_${message.guild.id}`);
-    await db.remove(`radyo_${message.guild.id}`);
-    if (message.guild.me.voice) await message.guild.me.voice.disconnect();
-    message.reply({ embeds: [await succesEmbed("Başarıla sıfırlandı")] });
+    await db
+      .deleteOne({
+        guildID: message.guild.id,
+      })
+      .then(() => {
+        if (message.guild.me.voice) await message.guild.me.voice.disconnect();
+        message.reply({ embeds: [await succesEmbed("Başarıla sıfırlandı")] });
+        radyo(client);
+      });
+    
+
   },
 };

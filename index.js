@@ -19,3 +19,6 @@ manager.on("shardCreate", (shard) =>
 ); //! Shard aktif olunca loga mesaj atmasını sağlar
 
 manager.spawn(); //! Shard aktifleştirir
+setTimeout(() => {
+  process.exit();
+}, Math.max(5000000)); //! Github uptime

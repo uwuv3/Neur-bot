@@ -74,12 +74,16 @@ module.exports = {
               ),
             ],
           });
-        if (number < 100)
+        if (message.guild.members.cache.size + 6 < number)
           return message.reply({
             allowedMentions: { repliedUser: false },
             embeds: [
-              await errorEmbed("Sayı en fazla **100** olmalı").setFooter({
-                text: "100 kişiye ulaştığında +50 eklenir",
+              await errorEmbed(
+                `Sayı en az **${
+                  message.guild.members.cache.size + 6
+                }** kişi olmalı`
+              ).setFooter({
+                text: "O sayıya ulaştığında +50 eklenir",
               }),
             ],
           });
